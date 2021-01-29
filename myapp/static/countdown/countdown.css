@@ -13,7 +13,10 @@ body {
 	background-size: auto;
 	color: #ff0000;
 	text-align: center;
-	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;/*Chrome,Safari*/
+	-ms-text-size-adjust: 100%;/*EgdeMobile*/
+	-moz-text-size-adjust: 100%;/*firefox*/
 }
 
 .container {
