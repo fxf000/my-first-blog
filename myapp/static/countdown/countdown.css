@@ -3,10 +3,6 @@
 	src: url(./tl100/timeleap100.ttf);
 }
 
-html {
-    font-size: 16px;
-}
-
 body {
 	border: none;
 	background-color: #000000;
@@ -24,4 +20,6 @@ body {
 	font-family: MyFont;
 }
 
-#countdown { font-size:1.5rem;}
+#countdown {
+	font-size: 5vw;
+}
