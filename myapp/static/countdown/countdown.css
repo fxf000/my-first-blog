@@ -13,10 +13,7 @@ body {
 	background-size: auto;
 	color: #ff0000;
 	text-align: center;
-	text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;/*Chrome,Safari*/
-	-ms-text-size-adjust: 100%;/*EgdeMobile*/
-	-moz-text-size-adjust: 100%;/*firefox*/
+	-webkit-text-size-adjust: 100%;
 }
 
 .container {
@@ -27,4 +24,4 @@ body {
 	font-family: MyFont;
 }
 
-#countdown { font-size:5.3vw;}
+#countdown { font-size:1.5rem;}
