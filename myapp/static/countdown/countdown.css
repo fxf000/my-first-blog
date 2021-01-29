@@ -18,6 +18,5 @@ body {
 	border: none;
 	max-width: auto;
 	font-family: MyFont;
-	word-wrap: break-word;
 }
 #countdown { font-size:1.8em;}
