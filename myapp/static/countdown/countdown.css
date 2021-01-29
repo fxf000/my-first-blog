@@ -1,0 +1,23 @@
+@font-face {
+	font-family: 'MyFont';
+	src: url(./tl100/timeleap100.ttf);
+}
+
+body {
+	border: none;
+	background-color: #000000;
+	background-size: auto;
+	color: #ff0000;
+	text-align: center;
+	-webkit-text-size-adjust: 100%;
+}
+
+.container {
+	margin-top: -10px;
+	margin-bottom: -5px;
+	border: none;
+	max-width: auto;
+	font-family: MyFont;
+	word-wrap: break-word;
+}
+#countdown { font-size:1.8em;}

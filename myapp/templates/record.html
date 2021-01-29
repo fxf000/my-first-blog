@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DAILY RECORD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Record">
+  <meta name="keywords" content="programming, python, Algorithm, Machine Learning, Natural Language Processing">
+  <link rel="stylesheet" type="text/css" href="{% static "./css/style.css"%}">
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <div id="container">
+  <header>
+  <h1 id="logo"><a href="{% url 'index' %}">
+    <img src="{% static './images/logo.png' %}" alt="">
+  </a></h1>
+  <iframe src="{% static './countdown/countdown.html' %}" width=auto height=35px frameBorder="0" scrolling="no"></iframe>
+  <nav id="menubar">
+  <ul>
+  <li><a href="{% url 'record' %}">RECORD</a></li>
+  <li><a href="{% url 'category' %}">CATEGORY</a></li>
+  <li><a href="{% url 'about_me' %}">ABOUT ME</a></li>
+  <li><a href="{% url 'link' %}">LINK</a></li>
+  <li><a href="{% url 'index' %}#CONTACT">CONTACT</a></li>
+  </ul>
+  </nav>
+  </header>
+  <div id="contents">
+  <section>
+  <h2>RECORD</h2>
+  <p>
+    <b><font size="3" color="#000">2021</font></b>
+    &emsp;
+    <a >Dec.</a>&nbsp;
+    <a >Nov.</a>&nbsp;
+    <a >Oct.</a>&nbsp;
+    <a >Sept.</a>&nbsp;
+    <a >Aug.</a>&nbsp;
+    <a >July</a>&nbsp;
+    <a >June</a>&nbsp;
+    <a >May</a>&nbsp;
+    <a >Apr.</a>&nbsp;
+    <a >Mar.</a>&nbsp;
+    <a >Feb.</a>&nbsp;
+    <a href="{% url 'blog_202101' %}#01/2021">Jan.</a>&nbsp;
+  </p>
+  <p>
+    <b><font size="3" color="#000">2020</font></b>
+    &emsp;
+    <a href="{% url 'blog_202012' %}#12/2020">Dec.</a>&nbsp;
+    <a href="{% url 'blog_202011' %}#11/2020">Nov.</a>&nbsp;
+    <a href="{% url 'blog_202010' %}#10/2020">Oct.</a>&nbsp;
+    <a href="{% url 'blog_202009' %}#09/2020">Sept.</a>&nbsp;
+    <a href="{% url 'blog_202008' %}#08/2020">Aug.</a>&nbsp;
+    <a href="{% url 'blog_202007' %}#07/2020">July</a>&nbsp;
+    <a href="{% url 'blog_202006' %}#06/2020">June</a>&nbsp;
+    <a href="{% url 'blog_202005' %}#05/2020">May</a>&nbsp;
+  </p>
+  </div>
+  <!--/contents-->
+  <footer>
+  <small>Copyright&copy; <a href="{% url 'index' %}">DAILY RECORD</a> All Rights Reserved.</small>
+  <span class="pr">《<a href="http://template-party.com/" target="_blank">Web Design:Template-Party</a>》</span>
+  </footer>
+  </div>
+  <!--/container-->
+</body>
+
+</html>

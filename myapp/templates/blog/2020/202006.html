@@ -1,0 +1,465 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="06/2020">
+  <meta name="keywords" content="programming, python, Algorithm, Machine Learning, Natural Language Processing">
+  <link rel="stylesheet" type="text/css" href="{% static "./css/style.css"%}">
+
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</head>
+
+<body onload="prettyPrint()">
+  <div id="container">
+  <header>
+    <h1 id="logo"><a href="{% url 'index' %}"><img src="{% static './images/logo.png' %}" alt=""></a></h1>
+    <iframe src="{% static './countdown/countdown.html' %}" width=auto height=35px frameBorder="0" scrolling="no"></iframe>
+    <nav id="menubar">
+    <ul>
+    <li><a href="{% url 'record' %}">RECORD</a></li>
+    <li><a href="{% url 'category' %}">CATEGORY</a></li>
+    <li><a href="{% url 'about_me' %}">ABOUT ME</a></li>
+    <li><a href="{% url 'link' %}">LINK</a></li>
+    <li><a href="{% url 'index' %}#CONTACT">CONTACT</a></li>
+    </ul>
+    </nav>
+  </header>
+  <div id="contents">
+    <h2>RECORD</h2>
+    <h>
+    <a href="{% url 'blog_202005' %}" class="no-underline" target="_blank" rel="noopener noreferrer">
+      &#9655; Previous Month
+    </a>
+    </h>
+    &emsp;
+    <h id="06/2020">
+      <b><font size=4 color="#000" face="Comic Sans MS">06/2020</font></b>
+    </h>
+    &emsp;
+    <h>
+    <a href="{% url 'blog_202007' %}" class="no-underline" target="_blank" rel="noopener noreferrer">
+      &#9655; Next Month
+    </a>
+    </h>
+    <section id="06/02/2020">
+      <hr width= 910px>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">06/02/2020</font></b></br>
+        I wrote two programs.
+        The first program is about Bubble Sort.
+        Bubble Sort is an algorithm which sorts a sequence A in ascending order,
+        and in the worst case, the time complexity is O (n<sup>2</sup>).
+        If the given sequence A is in order, the best time complexity is O(n).
+        Then, the second program is the one that checks UNIX command.
+        In that program, I made a program to check the number of lines in the file.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_2_A" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Bubble Sort (ALDS1_2_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          def BubbleSort(A,n):
+              i = 0
+              flag = True
+              exchange = 0
+              while flag:
+                  flag = False
+                  for j in range(n - 1, i, -1):
+                      if A[j] < A[j-1]:
+                          A[j],A[j-1] = A[j-1],A[j]
+                          exchange += 1
+                          flag = True
+                  i += 1
+              return A,exchange
+
+          N = int(input())
+          S = [int(x) for x in input().split()]
+
+          A,exchange = BubbleSort(S,N)
+          print(" ".join(map(str,A)))
+          print(exchange)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Line count (10: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          file = "./popular-names.txt"
+          count = 0
+
+          with open(file,"r") as fileobj:
+              while True:
+                  line = fileobj.readline()
+                  aline = line.rstrip()
+                  if aline:
+                      count += 1
+                  else:
+                      break
+
+          print("Line count:",count)
+
+          # wc command : wc -l popular-names.txt
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming,
+          </a>
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="06/12/2020">
+      <hr width= 910px>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">06/12/2020</font></b></br>
+        I wrote three programs.
+        The first program is about Selection Sort for studying algorithms.
+        The worst time complexity is O (n<sup>2</sup>), which is the same as
+        <a href="{% url 'blog_202006' %}#06/02/2020">Bubble Sort</a>.
+        The difference between Bubble Sort and Selection Sort is that
+        Bubble Sort is a Stable Sort that does not exchange when the element keys are
+        the same and maintains the ranking relationship before sorting,
+        whereas Selection Sort is unstable that does not maintain the ranking relationship.
+        The second and third are programs for training UNIX commands,
+        one is a progrma that replaces tabs with spaces,
+        and the other is a program that extracts columns from a text file and saves them.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_2_B" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Selection Sort (ALDS1_2_B: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          def SelectionSort(A,N):
+              count = 0
+              for i in range(0,N,1):
+                  minj = i
+                  for j in range(i+1,N,1):
+                      if A[j] < A[minj]:
+                          minj = j
+                  A[i],A[minj] = A[minj],A[i]
+                  if i != minj:
+                      count += 1
+              return A,count
+
+          N = int(input())
+          A = [int(x) for x in input().split()]
+
+          A,count = SelectionSort(A,N)
+          print(" ".join(map(str,A)))
+          print(count)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Replace tabs into spaces (11: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          file = "./popular-names.txt"
+
+          with open(file) as fileobj:
+              for data in fileobj:
+                  text = data.rstrip().replace("\t"," ")
+                  print(text)
+
+          # UNIX command : sed 's/  / /g' popular-names.txt
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Col1.txt from the first column, col2.txt from the second column (12: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          file_r = "./popular-names.txt"
+
+          file_w1 = "゙./col1.txt"
+          file_w2 = "./col2.txt"
+
+          with open(file_r) as r:
+              with open(file_w1,mode="w") as w1:
+                  with open(file_w2,mode="w") as w2:
+                      for data in r:
+                          text = data.rstrip().split("\t")
+                          w1.writelines(text[0]+"\n")
+                          w2.writelines(text[1]+"\n")
+
+          # UNIX command : cut -f 1 popular-names.txt > col1.txt
+          # UNIX command : cut -f 2 popular-names.txt > col2.txt
+        </code></pre>
+      </p>
+      <p style="text-align:right; margin: -25px 0px 0px 0px;">
+        <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+        Category:
+        <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+          Programming,
+        </a>
+        <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+          Natural Language Processing
+        </a>
+        </font></b>
+      </p>
+    </section>
+    <section id="06/15/2020">
+      <hr width= 910px>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">06/15/2020</font></b></br>
+        I wrote a program about Stable Sort.
+        This program compared <a href="{% url 'blog_202006' %}#06/02/2020">Bubble Sort</a> and
+        <a href="{% url 'blog_202006' %}#06/12/2020">Selection Sort</a> to see if the
+        ranking relationship was maintained.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_2_C" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Stable Sort (ALDS1_2_C: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          def BubbleSort(A,N):
+              i = 0
+              flag = True
+              count = 0
+              while flag:
+                  flag = False
+                  for j in range(N-1,i,-1):
+                      if A[j][1:] < A[j-1][1:]:
+                          A[j],A[j-1] = A[j-1],A[j]
+                          count += 1
+                          flag = True
+                  i += 1
+              return A,count
+
+          def SelectionSort(A,N):
+              count = 0
+              for i in range(0,N,1):
+                  minj = i
+                  for j in range(i+1,N,1):
+                      if A[j][1:] < A[minj][1:]:
+                          minj = j
+                  A[i],A[minj] = A[minj],A[i]
+                  if i != minj:
+                      count += 1
+              return A,count
+
+          if __name__ == "__main__":
+              N = int(input())
+              C = list(map(str,input().split()))
+
+              C1 = C
+              C2 = C.copy()
+
+              C_B, _ = BubbleSort(C1,N)
+              C_S, _ = SelectionSort(C2,N)
+
+              print(" ".join(map(str,C_B)))
+              print("Stable")
+
+              print(" ".join(map(str,C_S)))
+
+              if C_S == C_B:
+                  print("Stable")
+              else:
+                  print("Not stable")
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+            Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="06/16/2020">
+      <hr width= 910px>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">06/16/2020</font></b></br>
+
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Merging col1.txt and col2.txt (13: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >First N lines (14: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Last N lines (15: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Split a file into N pieces (16: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+            Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="06/22/2020">
+      <hr width= 910px>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">06/22/2020</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_2_D" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Shell Sort (ALDS1_2_D: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          def InsertionSort(A,N,g):
+              global cnt
+              for j in range(g,N,1):
+                  v = A[j]
+                  k = j - g
+                  while k >= 0 and A[k] > v:
+                      A[k + g] = A[k]
+                      k = k - g
+                      cnt = cnt + 1
+                  A[k + g] = v
+
+          def ShellSort(A,N):
+              h = 1
+              while True:
+                  if h > N:
+                      break
+                  G.append(h)
+                  h = 3*h + 1
+              for i in range(len(G)-1,-1,-1):
+                  InsertionSort(A,N,G[i])
+
+          N = int(input())
+          A = [int(input()) for n in range(N)]
+
+          G = []
+          cnt = 0
+
+          ShellSort(A,N)
+
+          print(len(G))
+          print(" ".join(map(str,G[::-1])))
+          print(cnt)
+          for a in A:
+              print(a)
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+            Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="06/29/2020">
+      <hr width= 910px>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">06/29/2020</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_3_A" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Stack (ALDS1_3_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          def push(x):
+              global S
+              return S.append(x)
+
+          def pop():
+              global S
+              return S.pop()
+
+          ope = {"+":lambda a,b: b+a,
+                  "-":lambda a,b: b-a,
+                  "*":lambda a,b: b*a}
+
+          if __name__ == "__main__":
+              S = []
+
+              for s in input().split():
+                  if s in ope:
+                      push(ope[s](pop(),pop()))
+                  else:
+                      push(int(s))
+
+              print(" ".join(map(str,S)))
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px -30px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+            Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+  </br>
+    <h>
+    <a href="{% url 'blog_202005' %}" class="no-underline" target="_blank" rel="noopener noreferrer">
+      &#9655; Previous Month
+    </a>
+    </h>
+    &emsp;
+    <h>
+      <b><font size=4 color="#000" face="Comic Sans MS">06/2020</font></b>
+    </h>
+    &emsp;
+    <h>
+    <a href="{% url 'blog_202007' %}" class="no-underline" target="_blank" rel="noopener noreferrer">
+      &#9655; Next Month
+    </a>
+    </h>
+  </div>
+    <hr width= 1000px>
+    <footer>
+      <small>Copyright&copy; <a href="{% url 'index' %}">DAILY RECORD</a> All Rights Reserved.</small>
+      <span class="pr">《<a href="http://template-party.com/" target="_blank">Web Design:Template-Party</a>》</span>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DAILY RECORD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About me">
+  <meta name="keywords" content="programming, python, Algorithm, Machine Learning, Natural Language Processing">
+  <link rel="stylesheet" type="text/css" href="{% static "./css/style.css"%}">
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <div id="container">
+  <header>
+  <h1 id="logo"><a href="{% url 'index' %}">
+    <img src="{% static './images/logo.png' %}" alt="">
+  </a></h1>
+  <iframe src="{% static './countdown/countdown.html' %}" width=auto height=35px frameBorder="0" scrolling="no"></iframe>
+  <nav id="menubar">
+  <ul>
+    <li><a href="{% url 'record' %}">RECORD</a></li>
+    <li><a href="{% url 'category' %}">CATEGORY</a></li>
+    <li><a href="{% url 'about_me' %}">ABOUT ME</a></li>
+    <li><a href="{% url 'link' %}">LINK</a></li>
+    <li><a href="{% url 'index' %}#CONTACT">CONTACT</a></li>
+  </ul>
+  </nav>
+  </header>
+  <div id="contents">
+  <section>
+  <h2>ABOUT ME</h2>
+  <figure>
+  <img src="{% static './images/about_me.JPG' %}" width="80%" height="80%" style="display: block; margin-left: auto; margin-right: 0;">
+  </figure>
+  <p>
+    I am a Japanese who was studying physics at a graduate shool in Japan.
+    I used to belong to a laboratory of theoretical physics and experimental physics.
+    In those laboratories, I was researching the fields of quantum information and condensed matter physics.
+    Currently, I'm obessed with programming, have dropped out of the PhD course, and studying for AI development.
+    Then, from April 2021, I'm going to work as a engineer who use machine learning.
+  </p>
+  <p>
+    My hobbies are climbing moutains, walking and watching movies.
+    I want to climb moutains in various countries someday.
+    And, I like to see variouse creatures.
+  </p>
+  <p>
+    I would be happy if could communicate with people from various countries who visited my website.
+  </p>
+  </section>
+  <section>
+  <table class="ta2" align="center">
+  <tr>
+  <th colspan="2" class="tamidashi" >PERSONAL HISTORY</th>
+  </tr>
+  <tr>
+  <th>03/2018</th>
+  <td>M.A. of Physics at Tohoku University, Japan.</td>
+  </tr>
+  <tr>
+  <th>06/16/1991</th>
+  <td>Born in Saitama, Japan.
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d826144.6093787837!2d138.74386915400717!3d36.01718270390293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60192a8d477b01e9%3A0xfed91267aa80526c!2sSaitama!5e0!3m2!1sen!2sjp!4v1610196844303!5m2!1sen!2sjp" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </td>
+  </tr>
+  </table>
+  </section>
+  </div>
+  <!--/contents-->
+  <footer>
+  <small>Copyright&copy; <a href="{% url 'index' %}">DAILY RECORD</a> All Rights Reserved.</small>
+  <span class="pr">《<a href="http://template-party.com/" target="_blank">Web Design:Template-Party</a>》</span>
+  </footer>
+  </div>
+  <!--/container-->
+</body>
+
+</html>

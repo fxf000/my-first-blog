@@ -1,0 +1,228 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="NLP100 Exercise">
+  <meta name="keywords" content="programming, python, Algorithm, Machine Learning, Natural Language Processing">
+  <link rel="stylesheet" type="text/css" href="{% static "./css/style.css" %}">
+
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <div id="container">
+  <header>
+  <h1 id="logo"><a href="{% url 'index' %}">
+    <img src="{% static './images/logo.png' %}" alt="">
+  </a></h1>
+  <iframe src="{% static './countdown/countdown.html' %}" width=auto height=35px frameBorder="0"></iframe>
+  <nav id="menubar">
+  <ul>
+  <li><a href="{% url 'record' %}">RECORD</a></li>
+  <li><a href="{% url 'category' %}">CATEGORY</a></li>
+  <li><a href="{% url 'about_me' %}">ABOUT ME</a></li>
+  <li><a href="{% url 'link' %}">LINK</a></li>
+  <li><a href="{% url 'index' %}#CONTACT">CONTACT</a></li>
+  </ul>
+  </nav>
+  </header>
+  <div id="contents">
+  <h3 id="NLP100Exercise">
+    <a class="no-underline" href="https://nlp100.github.io/ja/" target="_blank" rel="noopener noreferrer">
+    <b><font color="#000" face="Comic Sans MS">NLP100 Exercise 2020</font></b>
+    </a>
+  </h3>
+  <section>
+    <p>
+    I, who haven't studied information field, solved
+    <a href="https://nlp100.github.io/ja/">NLP100 Exercise</a>
+    problems with python3 as
+    part of learning the basic of Natural Language Processing.
+    NLP100 Exercise is a bootcamp designed for beginner who don't know well programming,
+    data analysis and research around NLP.
+    </p>
+    <p>
+    I would like to post the code that solved the NLP100 Exercise problems by myself,
+    referring to various sites.
+    Then, if you have any technical advice and so on, please feel free to contact me.
+    </p>
+  </section>
+  <section>
+    <ol class="wrap-css-selector">
+    <div style="padding: 10px; margin-bottom: 10px; border: 2px solid #333333; width:800px; background-color: #dcdcdc;">
+      <b><font size="3" color="#000">Contnts</font></b>
+      <p style="margin: -5px 20px -5px 40px;">
+    <ol>
+      <li>Warm-up
+        </br>&emsp;
+        Train important topics of programming to handle strings and texts in this section.
+        <ol>
+          <li><a href="{% url 'blog_202005' %}#05/11/2020">Reversed string</a></li>
+          <li><a href="{% url 'blog_202005' %}#05/11/2020">"「パタトクカシーー」"</a></li>
+          <li><a href="{% url 'blog_202005' %}#05/11/2020">"「パトカー」＋「タクシー」＝「パタトクカシーー」"</a></li>
+          <li><a href="{% url 'blog_202005' %}#05/11/2020">Pi</a></li>
+          <li><a href="{% url 'blog_202005' %}#05/12/2020">Atomic symbols</a></li>
+          <li><a href="{% url 'blog_202005' %}#05/15/2020">N-gram</a></li>
+          <li><a href="{% url 'blog_202005' %}#05/23/2020">Set</a></li>
+          <li><a href="{% url 'blog_202005' %}#05/28/2020">Template-based sentence generation</a></li>
+          <li><a href="{% url 'blog_202005' %}#05/29/2020">Cipher text</a></li>
+          <li><a href="{% url 'blog_202005' %}#05/29/2020">Typoglycemia</a></li>
+        </ol>
+      </li>
+      <li>UNIX commands
+        </br>&emsp;
+        <ol>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ol>
+      </li>
+      <li>Regular Expression
+        </br>&emsp;
+        <ol>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ol>
+      </li>
+      <li>POS tagging
+        </br>&emsp;
+        <ol>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ol>
+      </li>
+      <li>Syntactic parsing
+        </br>&emsp;
+        <ol>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ol>
+      </li>
+      <li>Machine learning
+        </br>&emsp;
+        <ol>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ol>
+      </li>
+      <li>Word embeddings
+        </br>&emsp;
+        <ol>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ol>
+      </li>
+      <li>Neural networks
+        </br>&emsp;
+        <ol>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ol>
+      </li>
+      <li>RNN and CNN
+        </br>&emsp;
+        <ol>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ol>
+      </li>
+      <li>Machine translation
+        </br>&emsp;
+        <ol>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ol>
+      </li>
+    </ol>
+    </ol>
+    </div>
+  </section>
+  </div>
+  <!--/contents-->
+  <footer>
+  <small>Copyright&copy; <a href="{% url 'index' %}">DAILY RECORD</a> All Rights Reserved.</small>
+  <span class="pr">《<a href="http://template-party.com/" target="_blank">Web Design:Template-Party</a>》</span>
+  </footer>
+  </div>
+  <!--/container-->
+</body>
+</html>

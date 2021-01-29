@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DAILY RECORD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Link">
+  <meta name="keywords" content="programming, python, Algorithm, Natural Language Processing, NLP, Machine Learning, ML">
+  <link rel="stylesheet" type="text/css" href="{% static "./css/style.css"%}">
+
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <div id="container">
+  <header>
+    <h1 id="logo"><a href="{% url 'index' %}">
+      {% load static%}<img src="{% static './images/logo.png' %}" alt="">
+    </a></h1>
+    <iframe src="{% static './countdown/countdown.html' %}" width=auto height=35px frameBorder="0" scrolling="no"></iframe>
+  <nav id="menubar">
+  <ul>
+    <li><a href="{% url 'record' %}">RECORD</a></li>
+    <li><a href="{% url 'category' %}">CATEGORY</a></li>
+    <li><a href="{% url 'about_me' %}">ABOUT ME</a></li>
+    <li><a href="{% url 'link' %}">LINK</a></li>
+    <li><a href="{% url 'index' %}#CONTACT">CONTACT</a></li>
+  </ul>
+  </nav>
+  </header>
+  <div id="contents">
+  <section>
+  <h2>LINK</h2>
+  <p>This page contains reference lists when I wrote this website.</p>
+  <p>
+    <a href="{% url 'category' %}#PROGRAMMING"><b><font color="#000">Category: Competitive Programming</font></b></a>
+      </br>
+      · <a class="no-underline" href="http://judge.u-aizu.ac.jp/onlinejudge/finder.jsp?course=ALDS1" target="_blank" rel="noopener noreferrer">Aizu Online Judge</a>
+      </br>
+      · <a class="no-underline" href="https://www.amazon.co.jp/-/en/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%82%B3%E3%83%B3%E3%83%86%E3%82%B9%E3%83%88%E6%94%BB%E7%95%A5%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0%E3%81%A8%E3%83%87%E3%83%BC%E3%82%BF%E6%A7%8B%E9%80%A0-%E6%B8%A1%E9%83%A8-%E6%9C%89%E9%9A%86/dp/4839952957" target="_blank" rel="noopener noreferrer">プログラミングコンテスト攻略のためのアルゴリズムとデータ構造</a>
+      </br>
+      · <a  class="no-underline" href="https://www.amazon.co.jp/Introduction-Algorithms-Press-Thomas-Cormen/dp/0262533057" target="_blank" rel="noopener noreferrer">Introduction to Algorithms (MIT Press)</a>
+      </br>
+      · <a class="no-underline" href="https://fukki.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">螺旋本をpythonで解いてみた</a>
+  </p>
+  <p>
+    <a href="{% url 'category' %}#NLP"><b><font color="#000">Category: Natural Language Processing (NLP)</font></b></a>
+      </br>
+      · <a class="no-underline" href="https://nlp100.github.io/ja/" target="_blank" rel="noopener noreferrer">NLP 100 Exercise 2020</a>
+      </br>
+      · <a class="no-underline" href="https://www.amazon.co.jp/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E5%85%A5%E9%96%80-%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E9%AB%98%E6%9D%91-%E5%A4%A7%E4%B9%9F/dp/4339027510" target="_blank" rel="noopener noreferrer">言語処理のための機械学習入門 (自然言語処理シリーズ)</a>
+      </br>
+      · <a class="no-underline" href="https://blog.amedama.jp/entry/tf-idf" target="_blank" rel="noopener noreferrer">Python: scikit-learn と色々な TF-IDF の定義について</a>
+  </p>
+  <p>
+    <a href="{% url 'category' %}#ML"><b><font color="#000">Category: Machine Learning (ML)</font></b></a>
+      </br>
+      · <a class="no-underline" href="https://www.amazon.co.jp/-/en/%E7%80%A7-%E9%9B%85%E4%BA%BA/dp/4061538284/ref=sr_1_1?adgrpid=52564297599&dchild=1&gclid=EAIaIQobChMIl4-dyITZ7QIV1KiWCh2t5wafEAAYASAAEgKmmvD_BwE&hvadid=338518048050&hvdev=c&hvlocphy=1009303&hvnetw=g&hvqmt=e&hvrand=17521620598149976025&hvtargid=kwd-376617406059&hydadcr=27266_11561146&jp-ad-ap=0&keywords=%E3%81%93%E3%82%8C%E3%81%AA%E3%82%89%E3%82%8F%E3%81%8B%E3%82%8B%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92%E5%85%A5%E9%96%80&qid=1608346221&sr=8-1&tag=googhydr-22" target="_blank" rel="noopener noreferrer">機械学習スタートアップシリーズ これならわかる深層学習入門 (KS情報科学専門書)</a>
+      </br>
+      · <a class="no-underline" href="https://www.amazon.co.jp/-/en/%E5%B2%A1%E8%B0%B7-%E8%B2%B4%E4%B9%8B/dp/4061529021/ref=sr_1_3?adgrpid=52564297599&dchild=1&gclid=EAIaIQobChMIl4-dyITZ7QIV1KiWCh2t5wafEAAYASAAEgKmmvD_BwE&hvadid=338518048050&hvdev=c&hvlocphy=1009303&hvnetw=g&hvqmt=e&hvrand=17521620598149976025&hvtargid=kwd-376617406059&hydadcr=27266_11561146&jp-ad-ap=0&keywords=%E3%81%93%E3%82%8C%E3%81%AA%E3%82%89%E3%82%8F%E3%81%8B%E3%82%8B%E6%B7%B1%E5%B1%A4%E5%AD%A6%E7%BF%92%E5%85%A5%E9%96%80&qid=1608346221&sr=8-3&tag=googhydr-22" target="_blank" rel="noopener noreferrer">深層学習 (機械学習プロフェッショナルシリーズ)</a>
+  </p>
+  <p>
+    <a href="{% url 'category' %}#ML"><b><font color="#000">Category: Website Creation</font></b></a>
+      </br>
+      · <a class="no-underline" href="https://mae.chab.in/archives/2963" target="_blank" rel="noopener noreferrer">技術ブログの「ソースコード」表示を効果的にカスタマイズする方法<a>
+      </br>
+      · <a class="no-underline" href="https://www.jqueryscript.net/time-clock/Minimalist-jQuery-Countdown-Timer-Plugin-countdown-js.html" target="_blank" rel="noopener noreferrer">Minimalist jQuery Countdown Timer Plugin - countdown.js</a>
+      </br>
+      · <a class="no-underline" href="https://prog.temochic.com/countdown-clock-sample/" target="_blank" rel="noopener noreferrer">カウントダウン時計を作ってみた【HTMLとCSSとJS】</a>
+      </br>
+      · <a class="no-underline" href="https://yellowglasses.jp/countdown/" target="_blank" rel="noopener noreferrer">デジタル風・カウントダウンタイマー</a>
+      </br>
+      · <a class="no-underline" href="https://ola.kironono.com/entry/fonts-timeleap" target="_blank" rel="noopener noreferrer">Ola Kae Tode Tai (カウントダウンタイマーのフォント)</a>
+      </br>
+      · <a class="no-underline" href="https://techacademy.jp/magazine/39311" target="_blank" rel="noopener noreferrer">Djangoを使ってHTMLページを表示する方法を現役エンジニアが解説【初心者向け】</a>
+    </br>
+    · <a class="no-underline" href="https://tutorial.djangogirls.org/ja/" target="_blank" rel="noopener noreferrer">Django Girls のチュートリアル</a>
+  </p>
+  </section>
+  </div>
+  <!--/contents-->
+  <footer>
+  <small>Copyright&copy; <a href="{% url 'index' %}">DAILY RECORD</a> All Rights Reserved.</small>
+  <span class="pr">《<a href="http://template-party.com/" target="_blank">Web Design:Template-Party</a>》</span>
+  </footer>
+  </div>
+  <!--/container-->
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" media="screen" href="./countdown.css" />
+<script type="text/javascript" src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="./countdown.js" charset="utf-8"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="jquery-script-clear"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#countdown').countdown({date: '16 june 2061 00:00'}, function() {
+    $('#countdown').text('we are live');
+  });
+});
+</script>
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-36251023-1']);
+_gaq.push(['_setDomainName', 'jqueryscript.net']);
+_gaq.push(['_trackPageview']);
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<div class="container">
+  <div id="countdown">
+    <span class="years label label-danger"></span> :
+    <span class="days label label-danger"></span> :
+    <span class="hours label label-danger"></span> :
+    <span class="mins label label-danger"></span> :
+    <span class="secs label label-danger"></span>
+  </div>
+</div>
+</body>
+</html>
