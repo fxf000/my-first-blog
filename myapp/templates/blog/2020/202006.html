@@ -52,7 +52,7 @@
     </a>
     </h>
     <section id="06/02/2020">
-      <hr width= 910px>
+      <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">06/02/2020</font></b></br>
         I wrote two programs.
@@ -126,7 +126,7 @@
         </p>
     </section>
     <section id="06/12/2020">
-      <hr width= 910px>
+      <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">06/12/2020</font></b></br>
         I wrote three programs.
@@ -217,7 +217,7 @@
       </p>
     </section>
     <section id="06/15/2020">
-      <hr width= 910px>
+      <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">06/15/2020</font></b></br>
         I wrote a program about Stable Sort.
@@ -288,10 +288,15 @@
         </p>
     </section>
     <section id="06/16/2020">
-      <hr width= 910px>
+      <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">06/16/2020</font></b></br>
-
+        I wrote four programs.
+        The first program is that merges two files,
+        the second is that outputs N lines from the beginning of the file,
+        the third is that outputs N lines from the end of the file,
+        and the fourth is that devides the file into N parts.
+        Then, I used UNIX commands to check each program.
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
@@ -299,7 +304,25 @@
         </a>
         </p>
         <pre><code class="prettyprint linenums">
+          def readlines_file(file_name):
+              with open(file_name,"r") as f:
+                  return f.readlines()
 
+          def writing_file(file_name,text):
+              with open(file_name,"w") as f:
+                  return f.write(text)
+
+          file_r1 = "./col1.txt"
+          file_r2 = "./col2.txt"
+
+          file_w = "./merge_col1col2.txt"
+
+          col1 = list(map(lambda x:x.rstrip(), readlines_file(file_r1)))
+          col2 = list(map(lambda x:x.rstrip(), readlines_file(file_r2)))
+
+          lists = ["{}\t{}".format(line1,line2) for line1,line2 in zip(col1,col2)]
+
+          writing_file(file_w,"\n".join(lists))
         </code></pre>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
@@ -307,7 +330,15 @@
         </a>
         </p>
         <pre><code class="prettyprint linenums">
+          file = "./popular-names.txt"
 
+          N = int(input("Input N:"))
+
+          with open(file,"r") as fileobj:
+              for i in range(N):
+                  line = fileobj.readline()
+                  aline = line.rstrip()
+                  print(aline)
         </code></pre>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
@@ -315,7 +346,17 @@
         </a>
         </p>
         <pre><code class="prettyprint linenums">
+          import sys
 
+          def readlines_file(file_name):
+              with open(file_name) as f:
+                  return f.readlines()
+
+          N,file = sys.argv[1:3]
+
+          text = list(map(lambda x:x.rstrip(),readlines_file(file)))
+
+          print("\n".join(text[-int(N):]))
         </code></pre>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch02.html" target="_blank" rel="noopener noreferrer">
@@ -323,7 +364,29 @@
         </a>
         </p>
         <pre><code class="prettyprint linenums">
+          import sys
 
+          def readlines_file(file_name):
+              with open(file_name,"r") as f:
+                  return f.readlines()
+
+          def writing_file(file_name,text):
+              with open(file_name,"w") as f:
+                  return f.write(text)
+
+          def suffix(i):
+              return "{:03d}".format(i)
+
+          N,file,prefix = sys.argv[1:4]
+
+          lines = list(map(lambda x:x.rstrip(),readlines_file(file)))
+
+          split = len(lines) // int(N)
+
+          for i in range(int(N)):
+              offset = i * split
+              text = lines[offset : offset + split]
+              writing_file(prefix + suffix(i),"\n".join(text))
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
@@ -336,10 +399,18 @@
         </p>
     </section>
     <section id="06/22/2020">
-      <hr width= 910px>
+      <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">06/22/2020</font></b></br>
-        test
+        I wrote a program of Shell Sort.
+        Shell Sort is an algorithm that utilizes <a href="{% url 'blog_202005' %}#05/31/2020">Insertion Sort</a>
+        to arrange a list of n elements A in ascending order.
+        Insertion Sort exchanges adjacent elements, while Shell Sort exchanges elements
+        separated by g.
+        Therefore, Shell Sort is not Stable Sort.
+        This time, when I took g<sub>i+1</sub> = 3g<sub>i</sub>+1 (i = 1,2,···n-1),
+        the average of time complexity is O (n<sup>1.25</sup>),
+        but it seems that how to take g and the complexity are still being syudied.
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_2_D" target="_blank" rel="noopener noreferrer">
@@ -393,7 +464,7 @@
         </p>
     </section>
     <section id="06/29/2020">
-      <hr width= 910px>
+      <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">06/29/2020</font></b></br>
         test
@@ -454,7 +525,7 @@
     </a>
     </h>
   </div>
-    <hr width= 1000px>
+    <hr width= 95%>
     <footer>
       <small>Copyright&copy; <a href="{% url 'index' %}">DAILY RECORD</a> All Rights Reserved.</small>
       <span class="pr">《<a href="http://template-party.com/" target="_blank">Web Design:Template-Party</a>》</span>

@@ -30,7 +30,7 @@ ul {list-style-type: none;}
 ol {padding-left: 40px;padding-bottom: 15px;}
 img {border: none;max-width: 100%;height: auto;vertical-align: middle;}
 table {border-collapse:collapse;font-size: 100%;border-spacing: 0;}
-iframe {vertical-align:middle; }
+iframe { width:50vw; height:5vw; vertical-align:middle; }
 
 
 /*リンク（全般）設定
