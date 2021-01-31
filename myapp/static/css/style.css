@@ -318,11 +318,6 @@ figure img {
 pre {
 		overflow: auto;
 	  resize: horizontal;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
-    white-space: pre-wrap;
-    word-wrap: break-word;
 }
 
 pre.prettyprint {
@@ -346,7 +341,7 @@ border-radius:4px;
 li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9 {
 	margin-left: 10px;
 	padding-left: 10px;
-	width: 490px;
+	width: 700px;
 	list-style-position: outside;
   background: #d4d4d6;
   background-size: contain;
@@ -355,6 +350,3 @@ li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9 {
 .prettyprint ol.linenums li {
 	list-style-type: decimal;
 }
-
-/*iframeのレスポンシブ対応の方法。iphoneではみ出る問題
----------------------------------------------------------------------------*/

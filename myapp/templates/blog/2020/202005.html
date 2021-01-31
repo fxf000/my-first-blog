@@ -111,7 +111,8 @@
           </a>
           </p>
           <pre><code class='prettyprint linenums'>
-            words = "Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics."
+            words = "Now I need a drink, alcoholic of course,
+            after the heavy lectures involving quantum mechanics."
 
             words_replace = words.replace(",","").replace(".","")
             words_list = words_replace.split(" ")
@@ -147,7 +148,8 @@
           </a>
           </p>
           <pre><code class='prettyprint linenums'>
-            words = "Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can."
+            words = "Hi He Lied Because Boron Could Not Oxidize Fluorine.
+            New Nations Might Also Sign Peace Security Clause. Arthur King Can."
 
             S = words.split()
             index_1 = [1, 5, 6, 7, 8, 9, 15, 16, 19]
@@ -410,7 +412,8 @@
                         result.append(typoglycemia_list)
                 return " ".join(result)
 
-            sentence = "I couldn’t believe that I could actually understand what I was reading : the phenomenal power of the human mind ."
+            sentence = "I couldn’t believe that I could actually understand what I was reading :
+            the phenomenal power of the human mind ."
 
             print(Typoglycemia(sentence))
           </code></pre>
