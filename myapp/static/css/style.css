@@ -32,7 +32,6 @@ img {border: none;max-width: 100%;height: auto;vertical-align: middle;}
 table {border-collapse:collapse;font-size: 100%;border-spacing: 0;}
 iframe { width:100%; height:20%; vertical-align:middle; }
 
-
 /*リンク（全般）設定
 ---------------------------------------------------------------------------*/
 a {
@@ -317,7 +316,7 @@ figure img {
 /*ソースコードの表示の位置とソースコードの行数の表示*/
 pre {
 		overflow: auto;
-	  resize: horizontal;
+		resize: horizontal;
 }
 
 pre.prettyprint {
