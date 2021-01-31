@@ -40,8 +40,8 @@
 }
 /*３枚画像の共通設定*/
 #slide1,#slide2,#slide3 {
-	-webkit-animation-duration: 12s;	/*実行する時間。「s」は秒の事。*/
-	animation-duration: 12s;			/*同上*/
+	-webkit-animation-duration: 15s;	/*実行する時間。「s」は秒の事。*/
+	animation-duration: 15s;			/*同上*/
 	-webkit-animation-iteration-count:infinite;	/*実行する回数。「infinite」は無限に繰り返す意味。*/
 	animation-iteration-count:infinite;			/*同上*/
 	position: absolute;left:0px;top:0px;width: 100%;height: auto;

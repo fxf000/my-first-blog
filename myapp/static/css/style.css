@@ -136,7 +136,8 @@ header {
 }
 /*画像の設定*/
 .list img {
-	width: 20%;		/*画像幅*/
+	width: 30%;		/*画像幅*/
+	height: 50%;
 	float: left;	/*画像を左に回り込み*/
 	margin-right: 3%	/*画像の右側に空けるスペース*/
 }
