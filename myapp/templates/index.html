@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,105 +21,99 @@
 
 <body id="top">
 
-<div id="container">
+  <div id="container">
+  <header>
+  <h1 id="logo"><a href="{% url 'index' %}">
+    <img src="{% static './images/logo.png' %}" alt="">
+  </a></h1>
+  <iframe src="{% static './countdown/countdown.html' %}" frameBorder="0" scrolling="no"></iframe>
+  <nav id="menubar">
+  <ul>
+  <li><a href="{% url 'record' %}">RECORD</a></li>
+  <li><a href="{% url 'category' %}">CATEGORY</a></li>
+  <li><a href="{% url 'about_me' %}">ABOUT ME</a></li>
+  <li><a href="{% url 'link' %}">LINK</a></li>
+  <li><a href="{% url 'index' %}#CONTACT">CONTACT</a></li>
+  </ul>
+  </nav>
+  </header>
+  <aside id="mainimg">
+  {% load static%}<img src="{% static './images/1.JPG' %}" alt="" id="slide0">
+  {% load static%}<img src="{% static './images/1.JPG' %}" alt="" id="slide1">
+  {% load static%}<img src="{% static './images/2.JPG' %}" alt="" id="slide2">
+  {% load static%}<img src="{% static './images/3.JPG' %}" alt="" id="slide3">
+  </aside>
+  <div id="contents">
+  <section id="new">
+  <h2 id="newinfo_hdr" class="close">UPDATE INFORMATION</h2>
+  <dl id="newinfo">
+  <dt>01/31/2021</dt>
+  <dd>Adjusted screen settings for smartphones.</dd>
+  <dt>01/20/2021</dt>
+  <dd>Posted the study records of May 2020.</dd>
+  <dt>01/08/2021</dt>
+  <dd>Deployed the website.</dd>
+  <dt>12/16/2020</dt>
+  <dd>Start creating my website.</dd>
+  </dl>
+  </section>
+  <section>
+  <h2>WHAT'S THIS WEBSITE?</h2>
+  <p>
+    This website was created with the aim of keeping a record of what I learned in daily life and
+    improving my English skills.
+  </p>
+  <p>
+    As a person who has studied only physics so far, I would like to record what I have learned
+    to hone my programming skills.
+    First of all, I bacame interested in programming because I wanted to create artificial intelligence (AI)
+    that could interact with me.
+    Then, when I researched AI technology, the programming language called python is actively used in AI development.
+    So, I record based on python what I learned such as the basic algorithms for AI development in this website.
+    Since I started using python at the end of 2019,
+    I've been interested in natural language processing (NLP) using machine learning (ML) recently,
+    and I would like to study and make a note such things as well.
+  </p>
+  <p>
+    Then, if you have any advice on what I wrote is wrong and so on, please feel free to contact me.
+  </p>
+  </section>
+  <section>
+  <h2 id="CONTACT">CONTACT</h2>
+  <table class="ta2" align="center">
+  <tr>
+  <th>E-mail</th>
+  <td>zfxf000fxfz
+    {% load static%}<img src="{% static './images/atsign.png' %}" alt="at sign" style="vertical-align:middle;">
+  gmail.com
+  </td>
+  </tr>
+  <tr>
+  <th>GitHub</th>
+  <td><a href="https://github.com/fxf000" target="_blank">fxf000</a></td>
+  </tr>
+  <tr>
+  <th>LeetCode</th>
+  <td><a href="https://leetcode.com/fxf000/" target="_blank">fxf000</a></td>
+  </tr>
+  </table>
+  </section>
+  </div>
+  <!--/contents-->
+  <footer>
+  <small>Copyright&copy; <a href="{% url 'index' %}">DAILY RECORD</a> All Rights Reserved.</small>
+  <span class="pr">《<a href="http://template-party.com/" target="_blank">Web Design:Template-Party</a>》</span>
+  </footer>
+  </div>
+  <!--/container-->
 
-<header>
-<h1 id="logo"><a href="{% url 'index' %}">
-  <img src="{% static './images/logo.png' %}" alt="">
-</a></h1>
-<iframe src="{% static './countdown/countdown.html' %}" frameBorder="0" scrolling="no"></iframe>
-<nav id="menubar">
-<ul>
-<li><a href="{% url 'record' %}">RECORD</a></li>
-<li><a href="{% url 'category' %}">CATEGORY</a></li>
-<li><a href="{% url 'about_me' %}">ABOUT ME</a></li>
-<li><a href="{% url 'link' %}">LINK</a></li>
-<li><a href="{% url 'index' %}#CONTACT">CONTACT</a></li>
-</ul>
-</nav>
-</header>
-
-<aside id="mainimg">
-{% load static%}<img src="{% static './images/1.JPG' %}" alt="" id="slide0">
-{% load static%}<img src="{% static './images/1.JPG' %}" alt="" id="slide1">
-{% load static%}<img src="{% static './images/2.JPG' %}" alt="" id="slide2">
-{% load static%}<img src="{% static './images/3.JPG' %}" alt="" id="slide3">
-</aside>
-
-<div id="contents">
-
-<section id="new">
-<h2 id="newinfo_hdr" class="close">UPDATE INFORMATION</h2>
-<dl id="newinfo">
-<dt>01/20/2021</dt>
-<dd>Started posting records of my studies in the past.</dd>
-<dt>01/08/2021</dt>
-<dd>Deployed the website.</dd>
-<dt>12/16/2020</dt>
-<dd>Start creating my website.</dd>
-</dl>
-</section>
-
-<section>
-<h2>WHAT'S THIS WEBSITE?</h2>
-<p>
-  This website was created with the aim of keeping a record of what I learned in daily life and
-  improving my English skills.
-</p>
-<p>
-  As a person who has studied only physics so far, I would like to record what I have learned
-  to hone my programming skills.
-  First of all, I bacame interested in programming because I wanted to create artificial intelligence (AI)
-  that could interact with me.
-  Then, when I researched AI technology, the programming language called python is actively used in AI development.
-  So, I record based on python what I learned such as the basic algorithms for AI development in this website.
-  Since I started using python at the end of 2019,
-  I've been interested in natural language processing (NLP) using machine learning (ML) recently,
-  and I would like to study and make a note such things as well.
-</p>
-<p>
-  Then, if you have any advice on what I wrote is wrong and so on, please feel free to contact me.
-</p>
-</section>
-
-<section>
-<h2 id="CONTACT">CONTACT</h2>
-<table class="ta2" align="center">
-<tr>
-<th>E-mail</th>
-<td>zfxf000fxfz
-  {% load static%}<img src="{% static './images/atsign.png' %}" alt="at sign" style="vertical-align:middle;">
-gmail.com
-</td>
-</tr>
-<tr>
-<th>GitHub</th>
-<td><a href="https://github.com/fxf000" target="_blank">fxf000</a></td>
-</tr>
-<tr>
-<th>LeetCode</th>
-<td><a href="https://leetcode.com/fxf000/" target="_blank">fxf000</a></td>
-</tr>
-</table>
-</section>
-
-</div>
-<!--/contents-->
-
-<footer>
-<small>Copyright&copy; <a href="{% url 'index' %}">DAILY RECORD</a> All Rights Reserved.</small>
-<span class="pr">《<a href="http://template-party.com/" target="_blank">Web Design:Template-Party</a>》</span>
-</footer>
-
-</div>
-<!--/container-->
-
-<!--スマホ用更新情報　480px以下-->
-<script type="text/javascript">
-if (OCwindowWidth() <= 480) {
-	open_close("newinfo_hdr", "newinfo");
-}
-</script>
-
+  <!--スマホ用更新情報　480px以下-->
+  <script type="text/javascript">
+  if (OCwindowWidth() <= 480) {
+  	open_close("newinfo_hdr", "newinfo");
+  }
+  </script>
+  
 </body>
+
 </html>
