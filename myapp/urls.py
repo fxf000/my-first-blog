@@ -11,6 +11,7 @@ urlpatterns = [
     path('record', views.record_template, name='record'),
     path('AizuOnlineJudge', views.AizuOnlineJudge, name='Aizu'),
     path('NLP100exercise', views.NLP100, name='NLP100'),
+    path('ML_math', views.ML_math, name='ML_math'),
     path('blog_202005', views.blog_202005, name='blog_202005'),
     path('blog_202006', views.blog_202006, name='blog_202006'),
     path('blog_202007', views.blog_202007, name='blog_202007'),
@@ -20,4 +21,5 @@ urlpatterns = [
     path('blog_202011', views.blog_202011, name='blog_202011'),
     path('blog_202012', views.blog_202012, name='blog_202012'),
     path('blog_202101', views.blog_202101, name='blog_202101'),
+    path('blog_202102', views.blog_202102, name='blog_202102'),
 ]

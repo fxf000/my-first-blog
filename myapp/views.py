@@ -24,6 +24,9 @@ def AizuOnlineJudge(request):
 def NLP100(request):
     return render(request, 'NLP100/NLP100exercise.html')
 
+def ML_math(request):
+    return render(request, 'ML_math/ML_math.html')
+
 def blog_202005(request):
     return render(request, 'blog/2020/202005.html')
 
@@ -50,3 +53,6 @@ def blog_202012(request):
 
 def blog_202101(request):
     return render(request, 'blog/2021/202101.html')
+
+def blog_202102(request):
+    return render(request, 'blog/2021/202102.html')

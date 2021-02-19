@@ -51,6 +51,643 @@
       &#9655; Next Month
     </a>
     </h>
+    <section id="07/01/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">07/01/2020</font></b></br>
+        I wrote a program about
+        <a href="https://en.wikipedia.org/wiki/Queue_(abstract_data_type)">Queue</a>
+        to study basic data structures.
+        Queue is a First-In-First-Out (FIFO) data structure that
+        includes operations called enqueue and dequeue.
+        Enqueue is an operation to put data in Queue, and dequeue is
+        an operation to extract data.
+        Then, when the operations of enqueue and dequeue are repeated,
+        the data moves toward the tail,
+        so the time complexity of enqueue and dequeue becomes O(n).
+        To solve this problem, this program used a
+        <a href="https://en.wikipedia.org/wiki/Circular_buffer">circular buffer</a> whose
+        time complexity is O(1) as an array to store and retrieve data.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_3_B" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Queue (ALDS1_3_B: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import sys
+
+          input = sys.stdin.readline
+
+          class Queue():
+              def __init__(self,size):
+                  self.head = 0
+                  self.tail = 0
+                  self.MAX = size+1
+                  self.Q = [None for _ in range(self.MAX)]
+
+              def isEmpty(self):
+                  return self.head ==  self.tail
+
+              def isFull(self):
+                  return self.head == (self.tail+1)%self.MAX
+
+              def enqueue(self,x):
+                  if self.isFull():
+                      sys.exit("Full")
+                  self.Q[self.tail] = x
+                  self.tail = (self.tail+1)%self.MAX
+
+              def dequeue(self):
+                  if self.isEmpty():
+                      sys.exit("Empty")
+                  x = self.Q[self.head]
+                  self.head = (self.head+1)%self.MAX
+                  return x
+
+
+          def main():
+              N,q = map(int,input().split())
+
+              Q_ = Queue(N)
+              for n in range(N):
+                  p,time = input().split()
+                  Q_.enqueue([p,int(time)])
+
+              elapsed_time = 0
+
+              while not Q_.isEmpty():
+                  process = Q_.dequeue()
+                  if process[1] > q:
+                      elapsed_time += q
+                      Q_.enqueue([process[0],process[1]-q])
+                  else:
+                      elapsed_time += process[1]
+                      print(process[0]+" "+str(elapsed_time))
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="07/08/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">07/08/2020</font></b></br>
+        I wrote a program that implements
+        <a href="https://en.wikipedia.org/wiki/Doubly_linked_list">Doubly Linked List</a>.
+        Doubly Linked List is a data structure that holds a key as a value of a data element
+        and connects the previous and next elements with prev and next pointers.
+        And the each element of the data list is called a Node.
+        The time complexity of adding an element to the Doubly Linked List is O(1),
+        but the time complexity of searching for or deleting a specific element is O(n).
+        However, the deletion of the first or last element is O(1).
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_3_C" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Doubly Linked List (ALDS1_3_C: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          class Node():
+              def __init__(self,key):
+                  self.key = key
+                  self.prev = None
+                  self.next = None
+
+
+          class DoublyLinkedList():
+              def __init__(self):
+                  self.nil = Node(None)
+                  self.nil.prev = self.nil
+                  self.nil.next = self.nil
+
+              def insert(self,key):
+                  new = Node(key)
+                  new.next = self.nil.next
+                  self.nil.next.prev = new
+                  self.nil.next = new
+                  new.prev = self.nil
+
+              def listSearch(self,key):
+                  cur = self.nil.next
+                  while cur != self.nil and cur.key != key:
+                      cur = cur.next
+                  return cur
+
+              def deleteNode(self,t):
+                  if t == self.nil:
+                      return
+                  t.prev.next = t.next
+                  t.next.prev = t.prev
+
+              def delteFirst(self):
+                  self.deleteNode(self.nil.next)
+
+              def deleteLast(self):
+                  self.deleteNode(self.nil.prev)
+
+              def deleteKey(self,key):
+                  self.deleteNode(self.listSearch(key))
+
+
+          if __name__ == "__main__":
+              from sys import stdin
+
+              input = stdin.readline
+
+              n = int(input())
+              DLL = DoublyLinkedList()
+
+              for _ in range(n):
+                  com = input().rstrip()
+                  if com[0] == "i":
+                      key = com[7:]
+                      DLL.insert(key)
+                  elif com[6] == "F":
+                      DLL.delteFirst()
+                  elif com[6] == "L":
+                      DLL.deleteLast()
+                  else:
+                      key = com[7:]
+                      DLL.deleteKey(key)
+
+              cur = DLL.nil.next
+
+              ans = []
+              while cur != DLL.nil:
+                  ans.append(cur.key)
+                  cur = cur.next
+
+              print(" ".join(ans))
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="07/23/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">07/23/2020</font></b></br>
+        I wrote a program to calculate the cross-sectional area of
+        each puddle using Stack data structure.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_3_D" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Areas on the Cross-Section Diagram (ALDS1_3_D: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          from collections import deque
+
+          areas = input()
+          S1 = deque([])
+          S2 = deque([])
+
+          sum_ = 0
+
+          for i,ch in enumerate(areas):
+              if ch == "\\":
+                  S1.append(i)
+              elif ch == "/" and len(S1) > 0:
+                  j = S1.pop()
+                  sum_ += i-j
+                  a = i-j
+                  while len(S2) > 0 and S2[-1][0] > j:
+                      a += S2.pop()[1]
+                  S2.append([j,a])
+
+          ans = []
+          while len(S2) > 0:
+              ans.append(S2.pop()[1])
+
+          ans.reverse()
+
+          A = sum(ans)
+
+          ans.insert(0,len(ans))
+          L = map(str,ans)
+          print(" ".join(L))
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="07/27/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">07/27/2020</font></b></br>
+        I wrote 5 programs.
+        The first program is about a
+        <a href="https://en.wikipedia.org/wiki/Linear_search">Linear Search</a>
+        algorithm.
+        When searching for data in a list or array,
+        the Linear Search compares in order from the beginning and
+        ends when it is equal to the target value.
+        This algorithm is inefficient, and
+        when searching m data out of n data,
+        the time complexity is O(nm).
+        Then, the remaining 4 programs are about regular expression.
+        I made a program to read and display the json file of a Wikipedia article,
+        a program to extract the line containing the category name of the article,
+        a program to extract only the category name,
+        and a program to display the section structure of the article.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_4_A" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Linear Search (ALDS1_4_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          def LinearSearch(A,n,key):
+              i = 0
+              A[n] = key
+              while A[i] != key:
+                  i += 1
+              return i != n
+
+          N = int(input())
+          S = [int(x) for x in input().split(" ")]
+          S.append(None)
+
+          q = int(input())
+          T = [int(x) for x in input().split(" ")]
+
+          count = 0
+
+          for key in T:
+              if LinearSearch(S,N,key):
+                  count += 1
+          print(count)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch03.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Read JSON documents (20: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+
+          import json
+          import gzip
+
+          json_file = './jawiki-country.json.gz'
+
+          with gzip.open(json_file,'r') as f:
+              for line in f:
+                  data = json.loads(line,encoding="utf-8")
+                  if ("title","イギリス") in data.items():
+                      print(data["text"])
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch03.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Extract lines with category names (21: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+
+          import json
+          import re
+
+          json_file = "./jawiki-country.json"
+
+          def chosen_UK():
+              with open(json_file,"r",encoding="utf-8") as f:
+                  for line in f:
+                      data = json.loads(line,encoding="utf-8")
+                      if ("title","イギリス") in data.items():
+                          UK = data
+                          break
+              return UK
+
+          UK_text = chosen_UK()["text"].split("\n")
+          pattern = r"\[\[Category:.*\]\]"
+
+          for text in UK_text:
+              if re.match(pattern,text):
+                  print(text)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch03.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Extract category names (22: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # -*- coding: utf-8 -*-
+
+          import json
+          import re
+
+          json_file = "./jawiki-country.json"
+
+          def search_UK():
+              with open(json_file,"r",encoding="utf-8") as f:
+                  for line in f:
+                      data = json.loads(line)
+                      if ("title","イギリス") in data.items():
+                          UK = data
+                          break
+              return UK
+
+          UK_text = search_UK()["text"].split("\n")
+          pattern = r"\[\[Category:.*\]\]"
+
+          for text in UK_text:
+              if re.match(pattern,text):
+                  text = re.sub(r"\[\[Category:","",text)
+                  text = re.sub(r"(\|.)*(\]\])","",text)
+                  print(text)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch03.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Section structure (23: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # -*- coding: utf-8 -*-
+
+          import json
+          import re
+
+          json_file = "./jawiki-country.json"
+
+          def search_UK():
+              with open(json_file,"r",encoding="utf-8") as f:
+                  for line in f:
+                      data = json.loads(line)
+                      if ("title","イギリス") in data.items():
+                          UK = data
+                          break
+              return UK
+
+          UK_text = search_UK()["text"].split("\n")
+          pattern = r"=.+="
+
+          for text in UK_text:
+              if re.match(pattern,text):
+                  level = text.count("=")//2 - 1
+                  print("{} -> level:{}".format(text,level))
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming,
+          </a>
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="07/28/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">07/28/2020</font></b></br>
+        I wrote two programs about a
+        <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Binary Search</a>
+        and a
+        <a href="https://en.wikipedia.org/wiki/Hash_table">Hash Table</a>.
+        The Binary Search is an algorithm that searches a sorted array.
+        And, the binary search looks at the value in the center of
+        the array, compares it to the target value,
+        determines if the target value is to the left or right of the center value,
+        and confirms that it does not exist in one side while exploring.
+        If there are n data,
+        the time complexity for one data of the Binary Search is O (log<sub>2</sub>n).
+        Then, the Hash Table is a datastructure that can be dynamically
+        inserted, retrieved, and deleted for a set of keyed data.
+        Here, the important point of the Hash table is that
+        the index of the array is determined from the key of the data.
+        The method of determining the index of an array from a key
+        uses a function called a hash function,
+        and obtains the index from the hash value returned from that function.
+        Also, when making the hash function,
+        make sure that different keys do not have the same hash value.
+        This time, in this program, key and m are integers,
+        h1(key) := key mod m and h2(key) := 1 + (key mod (m-1)) are defined,
+        and the hash function h(key,i) is h(key,i) = (h1(key) + i*h2(key)) mod m (i=0,1,···).
+        As the result, the time complexity of inserting and searching is O(1).
+        <table class="ta2" align="center">
+          <tr>
+          <th colspan="3" class="tamidashi" >Search Complexity</th>
+          </tr>
+          <tr align="center">
+            <th></th>
+            <th>Time complexity</th>
+            <th>Space complexity</th>
+          </tr>
+          <tr align="center">
+            <th>Linear Seach</th>
+            <td>O(n)</td>
+            <td>O(1)</td>
+          </tr>
+          <tr align="center">
+            <th>Binary Search</th>
+            <td>O(log<sub>2</sub>n)</td>
+            <td>O(1)</td>
+          </tr>
+          <tr align="center">
+            <th>Hash Table</th>
+            <td>O(1)</td>
+            <td>O(n)</td>
+          </tr>
+        </table>
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_4_B" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Binary Search (ALDS1_4_B: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          def BinarySearch(A,key):
+              left = 0
+              right = len(A)
+              while left < right:
+                  mid = (left + right)//2
+                  if A[mid] == key:
+                      return True
+                  elif key < A[mid]:
+                      right = mid
+                  else:
+                      left = mid + 1
+              return False
+
+
+          n = int(input())
+          S = list(map(int,input().split()))
+
+          q = int(input())
+          T = list(map(int,input().split()))
+
+          count = 0
+          for key in T:
+              if BinarySearch(S,key):
+                  count += 1
+          print(count)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_4_C" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Hash Table: Dictionary (ALDS1_4_C: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import sys
+
+          M = 1044697
+          H = [None] * M
+
+          table = str.maketrans({"A":"1","C":"2","G":"3","T":"4"})
+
+          def getChar(ch):
+              if ch == "A":
+                  return 1
+              elif ch == "C":
+                  return 2
+              elif ch == "G":
+                  return 3
+              elif ch == "T":
+                  return 4
+              else:
+                  return 0
+
+          def getKey(string):
+              sum = 0
+              p = 1
+              for i in range(len(string)):
+                  sum += p*(getChar(string[i]))
+                  p *= 5
+              return sum
+
+          def h1(key):
+              return key % M
+
+          def h2(key):
+              return 1 + (key % (M-1))
+
+          def find(string):
+              i = 0
+              key = getKey(string)
+              while True:
+                  h = (h1(key) + i * h2(key)) % M
+                  if H[h] == string:
+                      return 1
+                  elif H[h] is None:
+                      return 0
+                  else:
+                      i += 1
+
+          def insert(string):
+              i = 0
+              key = getKey(string)
+              while True:
+                  h = (h1(key) + i * h2(key)) % M
+                  if H[h] is None:
+                      H[h] = string
+                      break
+                  else:
+                      i += 1
+
+          input = sys.stdin.readline
+          n = int(input())
+
+          for _ in range(n):
+              com,string = input().split()
+              if com == "insert":
+                  insert(string)
+              elif com == "find":
+                  if find(string):
+                      print("yes")
+                  else:
+                      print("no")
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="07/29/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">07/29/2020</font></b></br>
+        I solved a problrem about a program that applied the
+        <a href="{% url 'blog_202007' %}#07/28/2020">Binary Search</a>.
+        When using brute force to search,
+        the time complexity is O(nP) for inputs n and P,
+        but utilizing the Binary Search, it is O(nlog<sub>2</sub>P).
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_4_D" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Optimal solution: Allocation (ALDS1_4_D: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import sys
+
+          n,k = map(int,sys.stdin.readline().split())
+          T = [int(sys.stdin.readline()) for _ in range(n)]
+
+          def check(P):
+              i = 0
+              for j in range(k):
+                  s = 0
+                  while (s + T[i] <= P):
+                      s += T[i]
+                      i += 1
+                      if i == n:
+                          return n
+              return i
+
+          left = 0
+          right = 100000 * 10000
+
+          while (right - left > 1):
+              mid = (left + right)//2
+              v = check(mid)
+              if v >= n:
+                  right = mid
+              else:
+                  left = mid
+
+          print(right)
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
   </br>
     <h>
     <a href="{% url 'blog_202006' %}" class="no-underline" target="_blank" rel="noopener noreferrer">
