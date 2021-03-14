@@ -51,6 +51,888 @@
       &#9655; Next Month
     </a>
     </h>
+    <section id="08/03/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">08/03/2020</font></b></br>
+        I wrote two programs about
+        <a href="https://en.wikipedia.org/wiki/Brute-force_search">Exhaustive Search</a>
+        and
+        <a href="https://en.wikipedia.org/wiki/Koch_snowflake">Koch Curve</a>
+        as a practice of recursion function.
+        First, the Exhaustive Search program is a program which
+        reads a sequnece A of n elements and an integer m,
+        determines whether you can make m by adding elements in A.
+        In this Exhasutive Search program,
+        two recursion functions are called in the recursion function,
+        so the time complexity becomes O(2<sup>n</sup>).
+        This program can be improved by using Dynamic Programming,
+        which will be introduced later.
+        Then, the Koch Curve program is a program that
+        finds coordinates of the vertices of the Koch Curve.
+        The Koch Curve is a kind of fractal figure,
+        and whole and part of figure are self-simular and
+        can be drawn by a recursion operation.
+        This time, the time complexity of this progrma becomes O(2<sup>2n</sup>)
+        because four recurrence operations are performed for each operation.
+        The figure below shows the Koch Curve when one operation (n=1),
+        two operation (n=2) and ten operation (n=10).
+        <div class="image">
+          <div class="img-1"><img src="{% static './images/KochCurve_n_1.png' %}" alt=""></div>
+          <div class="img-2"><img src="{% static './images/KochCurve_n_2.png' %}" alt=""></div>
+          <div class="img-2"><img src="{% static './images/KochCurve_n_10.png' %}" alt=""></div>
+        </div>
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_A" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Exhaustive Seach (ALDS1_5_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import sys
+
+          input = sys.stdin.readline
+
+          def solve(i,m):
+              if m == 0:
+                  return True
+              elif i >= n:
+                  return False
+              res = solve(i+1,m) or solve(i+1,m-A[i])
+              return res
+
+
+          if __name__ =="__main__":
+              n = int(input())
+              A = list(map(int,input().split()))
+
+              q = int(input())
+              m = list(map(int,input().split()))
+
+              for j in range(q):
+                  if solve(0,m[j]) == True:
+                      print("yes")
+                  else:
+                      print("no")
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_C" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Koch Curve (ALDS1_5_C: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import math
+          import sys
+
+          deg = 60
+
+          class Point():
+              def __init__(self,x,y):
+                  self.x = x
+                  self.y = y
+
+          X = []
+          Y = []
+          def koch(n,a,b):
+              if n == 0:
+                  return
+
+              rad = math.radians(deg)
+              s = Point((2*a.x + b.x)/3, (2*a.y + b.y)/3)
+              t = Point((a.x + 2*b.x)/3, (a.y + 2*b.y)/3)
+              u = Point(s.x + math.cos(rad)*(t.x-s.x) - math.sin(rad)*(t.y-s.y),
+                          s.y + math.sin(rad)*(t.x-s.x) + math.cos(rad)*(t.y-s.y))
+
+              koch(n-1,a,s)
+
+              print(s.x,s.y)
+              X.append(s.x)
+              Y.append(s.y)
+
+              koch(n-1,s,u)
+
+              print(u.x,u.y)
+              X.append(u.x)
+              Y.append(u.y)
+
+              koch(n-1,u,t)
+
+              print(t.x,t.y)
+              X.append(t.x)
+              Y.append(t.y)
+
+              koch(n-1,t,b)
+
+
+          if __name__ =="__main__":
+              n = int(sys.stdin.readline())
+
+              a = Point(0.0,0.0)
+              b = Point(100.0,0.0)
+
+              print(a.x,a.y)
+
+              koch(n,a,b)
+
+              print(b.x,b.y)
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="08/04/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">08/04/2020</font></b></br>
+        I wrote two programs for practicing regular expressions.
+        The first program extracts all media files linked from an article.
+        Then, the second program extracts field names and their values in
+        the 基礎情報(Infobox) "国(country)" to the article, and store them in a dictionary object.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch03.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Extract media references (24: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          #coding:utf-8
+          import json
+          import gzip
+          import re
+
+          json_file = "./jawiki-country.json.gz"
+
+          def search_UK(file):
+              with gzip.open(file,"r") as f:
+                  for line in f:
+                      data = json.loads(line)
+                      if data["title"] == "イギリス":
+                          UK = data
+                          break
+                  else:
+                      print("Not found UK-article")
+              return UK
+
+          UK_data = search_UK(json_file)
+
+          pattern = r"\[\[ファイル:.*\]\]"
+          UK_text = UK_data["text"].split("\n")
+
+          with open("UK_text.txt","w") as f:
+              print(UK_text,file=f)
+
+          for line in UK_text:
+              if re.match(pattern,line):
+                  line = re.sub(r"(\|.*)","",line)
+                  line = re.sub(r".*(ファイル:)","",line)
+                  print(line)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch03.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Extract infobox (25: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          #coding:utf-8
+
+          def read_wiki(file,country_name):
+              with gzip.open(file,"r") as f:
+                  for line in f:
+                      data = json.loads(line)
+                      if data["title"] == country_name:
+                          Country = data
+                          break
+                  else:
+                      print("Not found article")
+              return Country
+
+          def get_basic_information(data):
+              m1 = re.search(r"{{基礎情報 国.*",data["text"])
+              m2 = re.search(r'注記 .*\n}}', data["text"])
+              return data["text"][m1.end()+1:m2.end()-3]
+
+
+          if __name__ == "__main__":
+              import gzip
+              import json
+              import re
+
+              json_file = "./jawiki-country.json.gz"
+
+              UK_data = read_wiki(json_file,"イギリス")
+              basic_informaton = get_basic_information(UK_data)
+
+              basic_info_dic = {}
+              for line in basic_informaton.split("\n"):
+                  m = re.match(r"\|(.+)=(.*)",line)
+                  if m is None:
+                      continue
+                  basic_info_dic[m.group(1).strip()] = m.group(2).strip()
+
+              print(basic_info_dic)
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="08/12/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">08/12/2020</font></b></br>
+        I wrote a program to remove emphasis markups from an ariticle as
+        regular expression practice.
+        In additon to the process of the <a href="{% url 'blog_202008' %}#08/04/2020">problem 25</a>,
+        this program removes emphasis MediaWiki markups from the value and converts to text file
+        (referrence:
+        <a href="https://ja.wikipedia.org/wiki/Help:%E6%97%A9%E8%A6%8B%E8%A1%A8">Cheatsheet</a>).
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch03.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Remove emphasis markups (26: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+          import gzip
+          import json
+          import re
+
+          def read_wiki(file,country_name):
+              with gzip.open(json_file,"r") as f:
+                  for line in f:
+                      data = json.loads(line)
+                      if data["title"] == country_name:
+                          return data
+                  return ValueError("Not exist such a country!")
+
+          def get_basic_info(file,country_name):
+              country_data = read_wiki(file,country_name)
+              m1 = re.search(r"{{基礎情報 国.*",country_data["text"])
+              m2 = re.search(r"\|注記 .*\n}}",country_data["text"])
+              return country_data["text"][m1.start()+2:m2.end()-3]
+
+          def remove_emphasis(string):
+              m = re.match(r"(.+?)('{2,5})(.+?)('{2,5})(.*)",string)
+              if m is None:
+                  return string
+              str = m.group(1)+m.group(3)+m.group(5)
+              return str
+
+          def main():
+              basic_info_dic = {}
+
+              for line in get_basic_info(json_file,country_name).split("\n"):
+                  m = re.match(r"\|(.+)=(.+)",line)
+                  if m is None:
+                      continue
+                  val = remove_emphasis(m.group(2))
+                  basic_info_dic[m.group(1).strip()] = val.strip()
+
+              remove_emphasis_text = json.dumps(basic_info_dic,ensure_ascii=False,indent=4,separators=(',',':'))
+
+              with open("remove_emphasis.txt","w") as f:
+                  f.write(remove_emphasis_text)
+
+
+          if __name__ == "__main__":
+              json_file = "./jawiki-country.json.gz"
+              country_name = "イギリス"
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="08/18/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">08/18/2020</font></b></br>
+        I wrote a program about
+        <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>.
+        Merge Sort is an algorithm that splits an array in two and
+        merges the sorted two array.
+        And, if there are n elements,
+        the number of hierarchies to be divided is O(log<sub>2</sub>n),
+        and total number of merges performed for each hierarchy is O(n),
+        so the time complexity becomes O(nlog<sub>2</sub>n).
+        In the processing of merging the sorted arrays in the first half and second half,
+        Merge Sort always gives priority to the elements in the first half of the subarray
+        when the two target elements are the same,
+        so the elements with the same value are not exchanged.
+        Therefore, Merge Sort is a stable sort.
+        In addition, Merge Sort requires a temporary memory area other than input data.
+        Here, Merge Sort is a type of
+        <a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">divide-and-conquer algorithm</a>.
+        Divide-and-conquer algorithm recursively breaks down a problem into
+        two or more sub-problems of the same or related type,
+        until these become simple enough to be solved directly.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_B" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Merge Sort (ALDS1_5_B: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          from sys import stdin
+
+          input = stdin.readline
+
+          count = 0
+
+          def merge(A,left,mid,right):
+              global count
+              n1 = mid - left
+              n2 = right - mid
+              L = [0 for _ in range(n1+1)]
+              R = [0 for _ in range(n2+1)]
+              for i in range(n1):
+                  L[i] = A[left+i]
+              for i in range(n2):
+                  R[i] = A[mid+i]
+              L[n1] = float('inf')
+              R[n2] = float('inf')
+              i = 0
+              j = 0
+              for k in range(left,right):
+                  count += 1
+                  if L[i] <= R[j]:
+                      A[k] = L[i]
+                      i += 1
+                  else:
+                      A[k] = R[j]
+                      j += 1
+
+          def mergeSort(A,left,right):
+              if left + 1 < right:
+                  mid = (left+right)//2
+                  mergeSort(A,left,mid)
+                  mergeSort(A,mid,right)
+                  merge(A,left,mid,right)
+
+
+          def main():
+              n = int(input())
+              S = list(map(int,input().split()))
+
+              left = 0
+              right = n
+
+              mergeSort(S,left,right)
+
+              print(" ".join(map(str,S)))
+              print(count)
+
+
+
+          if __name__ == "__main__":
+              main()
+              # Time Limit Exceeded (Judge: 9/10, Python3	CPU: 05:95 sec, Memory: 66592 KB, Length: 952 B)
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="08/19/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">08/19/2020</font></b></br>
+        I wrote a program to learn regular expression.
+        In additon to the process of the <a href="{% url 'blog_202008' %}#08/12/2020">problem 26</a>,
+        this program removes internal links from the values and converts to text file
+        (reference: <a href="https://ja.wikipedia.org/wiki/Help:%E6%97%A9%E8%A6%8B%E8%A1%A8">Cheatsheet</a>).
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch03.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Remove internal links (27: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+          import gzip
+          import json
+          import re
+
+          def read_wiki(file,country_name):
+              with gzip.open(file,"r") as f:
+                  for text in f:
+                      data = json.loads(text)
+                      if data["title"] == country_name:
+                          return data
+              return ValueError("Not exist such a country!")
+
+          def get_basic_info(file,country_name):
+              country_data = read_wiki(file,country_name)
+              m1 = re.search(r"{{基礎情報 国.*",country_data["text"])
+              m2 = re.search(r"\|注記.*\n}}",country_data["text"])
+              return country_data["text"][m1.start()+2:m2.end()-3]
+
+          def remove_emphasis(string):
+              m = re.search(r"(.*?)('{2,5})(.*?)('{2,5})(.*)",string)
+              if m is None:
+                  return string
+              str = m.group(1)+m.group(3)+m.group(5)
+              return str
+
+          def remove_InternalLink(string):
+              str = re.sub(r"\[\[(?:[^.\]]+?\|)?([^:]+?)\]\]",r"\1",string)
+              return str
+
+
+          def main():
+              json_file = "./jawiki-country.json.gz"
+              basic_info_UK = get_basic_info(json_file,"イギリス")
+
+              basic_info_dic = {}
+
+              for line in basic_info_UK.split("\n"):
+                  m = re.search(r"\|(.*)=(.*)",line)
+                  if m is None:
+                      continue
+                  val = remove_emphasis(m.group(2))
+                  val = remove_InternalLink(val)
+                  basic_info_dic[m.group(1).strip()] = val.strip()
+
+              text = json.dumps(basic_info_dic,ensure_ascii=False,indent=2,separators=(",",":"))
+
+              with open("remove_InternalLink.txt","w") as f:
+                  f.write(text)
+
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="08/21/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">08/21/2020</font></b></br>
+        I wrote a program about an algorithm called Partition.
+        When an array A[p,···,r] is done Partition,
+        the A[p,···,r] is divided into two subarrays A[p,···,q-1] and A[q+1,···,r] such that
+        each element of A[p,···,q-1] is less than or equal to A[q], which is, in turn,
+        less than or equal to each element of A[q+1,···,r].
+        Also,it computes the index q.
+        Since Partition compares the element of the array one by one,
+        so the time complexity becomes O(n).
+        Partition is included in Quick Sort procedure described later.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_6_B" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Partition (ALDS1_6_B: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import sys
+
+          input = sys.stdin.readline
+
+          def partition(A,p,r):
+              x = A[r]
+              i = p-1
+              for j in range(p,r):
+                  if A[j] <= x:
+                      i += 1
+                      k = A[i]
+                      A[i] = A[j]
+                      A[j] = k
+              k = A[i+1]
+              A[i+1] = A[r]
+              A[r] = k
+              return i+1
+
+          def main():
+              n = int(input())
+              A = list(map(int,input().split()))
+
+              P = partition(A,0,n-1)
+
+              for l in range(n):
+                  if l >= 1:
+                      print(" ",end="")
+                  if l == P:
+                      print("[",end="")
+                  print(A[l],end="")
+                  if l == P:
+                      print("]",end="")
+              print()
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="08/22/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">08/22/2020</font></b></br>
+        I solved a problem about
+        <a href="https://en.wikipedia.org/wiki/Quicksort">Quick Sort</a>
+        used
+        <a href="{% url 'blog_202008' %}#08/21/2020">Partition</a> I made before.
+        In Quick Sort, the target array is recursively divided into two subarrays
+        by Partition, and the elements in each subarray are also recursively exchanged.
+        Here, Quick Sort is a sorting algorithm based on
+        <a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">divide-and-conquer algorithm</a>,
+        but there is not explicit processing that corresponds to conquer like Merge Sort
+        because Quick Sort already completes sorting in the array
+        when it is done Patition.
+        Then, the time complexity is O(nlog<sub>2</sub>n) because
+        the log<sub>2</sub>n stage hierarchy is formed roughly as in Maege Sort,
+        and total number of comparison caluculations performed in each hierarchy
+        is O(n).
+        Also, Qick Sort swaps elements that far apart inside Partition,
+        so it is not a stable sort.
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_6_C" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Quick Sort (ALDS1_6_C: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          class Card():
+              def __init__(self,suit,value):
+                  self.suit = suit
+                  self.value = value
+
+
+          def merge(S,left,mid,right):
+              n1 = mid - left
+              n2 = right - mid
+              L = [Card(None,None) for _ in range(n1+1)]
+              R = [Card(None,None) for _ in range(n2+1)]
+              for i in range(n1):
+                  L[i] = S[left+i]
+              for i in range(n2):
+                  R[i] = S[mid+i]
+              L[n1].value = float("inf")
+              R[n2].value = float("inf")
+              i,j = 0,0
+              for k in range(left,right):
+                  if L[i].value <= R[j].value:
+                      S[k] = L[i]
+                      i += 1
+                  else:
+                      S[k] = R[j]
+                      j += 1
+
+          def mergeSort(S,left,right):
+              if left+1 < right:
+                  mid = (left+right)//2
+                  mergeSort(S,left,mid)
+                  mergeSort(S,mid,right)
+                  merge(S,left,mid,right)
+
+          def partition(S,p,r):
+              x = S[r]
+              i = p-1
+              for j in range(p,r):
+                  if S[j].value <= x.value:
+                      i += 1
+                      k = S[i]
+                      S[i] = S[j]
+                      S[j] = k
+              k = S[i+1]
+              S[i+1] = S[r]
+              S[r] = k
+              return i+1
+
+          def quickSort(S,p,r):
+              if p < r:
+                  q = partition(S,p,r)
+                  quickSort(S,p,q-1)
+                  quickSort(S,q+1,r)
+
+
+          def main():
+              import sys
+
+              input = sys.stdin.readline
+
+              n = int(input())
+              A = [Card(None,None) for _ in range(n)]
+              B = [Card(None,None) for _ in range(n)]
+
+              for i in range(n):
+                  suit,value = input().split()
+                  A[i].suit = suit
+                  B[i].suit = suit
+                  A[i].value = int(value)
+                  B[i].value = int(value)
+
+              mergeSort(A,0,n)
+              quickSort(B,0,n-1)
+
+              for i in range(n):
+                  if A[i].suit != B[i].suit:
+                      print("Not stable")
+                      break
+              else:
+                  print("Stable")
+
+              for b in B:
+                  print("{} {}".format(b.suit,b.value))
+
+
+          if __name__ == '__main__':
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="08/28/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">08/28/2020</font></b></br>
+        I made a program about regular expressions.
+        This program obtains the URL of the country flag by
+        using the analysis result of Infobox
+        (reference: <a href="https://www.mediawiki.org/wiki/API:Imageinfo">Imageinfo</a> in
+        MediaWiki API).
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch03.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Obtain the url of the country flag (29: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+          import gzip
+          import json
+          import re
+          from urllib import parse,request
+          import webbrowser
+
+          def read_wiki(file_name,country_name):
+              with gzip.open(file_name,"r") as f:
+                  for text in f:
+                      country_data = json.loads(text)
+                      if country_data["title"] == country_name:
+                          return country_data["text"]
+              return ValueError("Not exixt.")
+
+          def get_basic_info(country_data):
+              m1 = re.search(r"\{\{基礎情報 国.*",country_data)
+              m2 = re.search(r"\|.*\n\}\}",country_data)
+              return country_data[m1.start()+2:m2.end()-3]
+
+          def remove_emphasis(string):
+              m = re.search(r"(.*?)('{2,5})(.*?)('{2,5})(.*)",string)
+              if m is None:
+                  return string
+              str = m.group(1)+m.group(3)+m.group(5)
+              return str
+
+          def remove_InternalLink(string):
+              str = re.sub(r"\[\[(?:[^.\]]+?\|)?([^:]+?)\]\]",r"\1",string)
+              return str
+
+          def get_image(image_info):
+              url = "https://en.wikipedia.org/w/api.php?"\
+                  +"action=query&"\
+                  +"format=json&"\
+                  +"prop=imageinfo&"\
+                  +"titles=File:"+parse.quote(image_info)+"&"\
+                  +"iiprop=url"
+              with request.urlopen(url) as req:
+                  data = json.loads(req.read().decode())
+                  return data['query']['pages'].popitem()[1]['imageinfo'][0]['url']
+
+
+          def main():
+              json_file = "./jawiki-country.json.gz"
+              country_data = read_wiki(json_file,"イギリス")
+              basic_info = get_basic_info(country_data)
+
+              basic_info_dic = {}
+              for line in basic_info.split("\n"):
+                  m = re.search(r"\|(.*)(=)(.*)",line)
+                  if m is None:
+                      continue
+                  val = remove_emphasis(m.group(3))
+                  val = remove_InternalLink(val)
+                  basic_info_dic[m.group(1).strip()] = val.strip()
+
+              national_flag_info = basic_info_dic["国旗画像"]
+              national_flag_PicURL = get_image(national_flag_info)
+
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="08/31/2020">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">08/31/2020</font></b></br>
+        I wrote a program related to
+        <a href="https://en.wikipedia.org/wiki/Counting_sort">Counting Sort</a>.
+        Counting sort is an algorithm which sorts a sequence with n elements,
+        each element being 0 or more and k or less.
+        This program first counts how many times each element of input array A appears
+        and stores them in array C.
+        Next, it finds the cumulative sum of each element of the counter array C,
+        and C is uploaded.
+        Then, using the counter array C,
+        the elements of A are copied in order to output array B,
+        and B is created to arrange in ascending order.
+        Looking at the for loop statement of Counting Sort program created this time,
+        it is clear that the time complexity is O(n+k).
+        Here, the sort complexity learned so far is summarized in the table below.
+        Quick Sort is generally known to be high speed sort,
+        although it depends on the alignment status of the array
+        (faster than Merge Sort). 
+        <table class="ta3" align="center">
+          <tr>
+          <th colspan="4" class="tamidashi">Sort Complexity</th>
+          </tr>
+          <tr align="center">
+            <th></th>
+            <th>Time complexity</th>
+            <th>Space complexity</th>
+            <th>Stability</th>
+          </tr>
+          <tr align="center">
+            <th>Insertion Sort</th>
+            <td>O(n<sup>2</sup>) ~ O(n)</td>
+            <td>O(n)</td>
+            <td>Stable</td>
+          </tr>
+          <tr align="center">
+            <th>Bubble Sort</th>
+            <td>O(n<sup>2</sup>) ~ O(n)</td>
+            <td>O(1)</td>
+            <td>Stable</td>
+          </tr>
+          <tr align="center">
+            <th>Selection Sort</th>
+            <td>O(n<sup>2</sup>)</td>
+            <td>O(n)</td>
+            <td>Not stable</td>
+          </tr>
+          <tr align="center">
+            <th>Shell Sort</th>
+            <td>O(nlog<sub>2</sub>n) ~ O(n<sup>2</sup>)</td>
+            <td>O(n)</td>
+            <td>Not stable</td>
+          </tr>
+          <tr align="center">
+            <th>Merge Sort</th>
+            <td>O(nlog<sub>2</sub>n)</td>
+            <td>O(n)</td>
+            <td>Stable</td>
+          </tr>
+          <tr align="center">
+            <th>Quick Sort</th>
+            <td>O(nlog<sub>2</sub>n) ~ O(n)</td>
+            <td>O(n)</td>
+            <td>Not Stable</td>
+          </tr>
+          <tr align="center">
+            <th>Counting Sort</th>
+            <td>O(n+k)</td>
+            <td>O(n+k)</td>
+            <td>Stable</td>
+          </tr>
+        </table>
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_6_A" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Counting Sort (ALDS1_6_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          from sys import stdin
+
+          input = stdin.readline
+
+          n = int(input())
+          A = list(map(int,input().split()))
+
+          k_max = 10000+1
+
+          def CountingSort(S,k_max):
+              C = [0]*(k_max+1)
+              B = [None]*n
+              for j in range(0,n,1):
+                  C[S[j]] = C[S[j]]+1
+              for i in range(1,k_max+1,1):
+                  C[i] = C[i]+C[i-1]
+              for j in range(n-1,-1,-1):
+                  B[C[A[j]]-1] = S[j]
+                  C[S[j]] = C[S[j]]-1
+              return B
+
+          B = CountingSort(A,k_max)
+
+          print(" ".join(map(str,B)))
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
   </br>
     <h>
     <a href="{% url 'blog_202007' %}" class="no-underline" target="_blank" rel="noopener noreferrer">

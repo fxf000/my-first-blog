@@ -227,6 +227,29 @@ footer .pr {
 	color: #000;
 }
 
+
+.ta3 {
+	width: 80%;
+	margin-bottom: 15px;
+}
+.ta3, .ta3 td, .ta3 th {
+	border: 1px solid #000;	/*テーブルの枠線の幅、線種、色*/
+	padding: 10px;			/*テーブル内の余白*/
+	word-break: break-all;
+}
+/*テーブル１行目に入った見出し部分*/
+.ta3 th.tamidashi {
+	width: auto;
+	text-align: center;	/*左よせ*/
+	background: #c0c0c0;	/*背景色*/
+	color: #000;	/*文字色*/
+}
+/*テーブルの左側ボックス*/
+.ta3 th {
+	width: 10%;	/*幅*/
+	text-align: center;	/*センタリング*/
+	color: #000;
+}
 /*その他
 ---------------------------------------------------------------------------*/
 .look {background: #e5e5e5;padding: 5px 10px;border-radius: 4px;}
@@ -367,4 +390,13 @@ li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9 {
 a[href$=".pdf"] {
 	padding: 7px 25px 7px 0;
 	background: url(../images/icon_pdf.png) right center/18px auto no-repeat;
+}
+
+
+/*画像を並べて表示
+---------------------------------------------------------------------------*/
+
+.image {display: flex; justify-content: center;}
+img {
+  max-width: 100%;
 }

@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="01/2021">
+  <meta name="description" content="02/2021">
   <meta name="keywords" content="programming, python, Algorithm, Machine Learning, Natural Language Processing">
   <link rel="stylesheet" type="text/css" href="{% static "./css/style.css"%}">
 
@@ -47,10 +47,34 @@
     </h>
     &emsp;
     <h>
-    <a href="" class="no-underline" target="_blank" rel="noopener noreferrer">
+    <a href="{% url 'blog_202103' %}" class="no-underline" target="_blank" rel="noopener noreferrer">
       &#9655; Next Month
     </a>
     </h>
+    <section id="02/03/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">02/03/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          test
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
     <section id="02/08/2021">
       <hr width= 95%>
       <p>
@@ -164,7 +188,7 @@
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">02/15/2021</font></b></br>
         I wrote a program about
-        <a href="https://en.wikipedia.org/wiki/K-d_tree">K-d tree</a>.
+        range search using <a href="https://en.wikipedia.org/wiki/K-d_tree">K-d tree</a>.
         K-d tree is a space-partitioning data structure for organizing points
         in a K-dimentional space.
         This time, I wrote the program of K = 2,
@@ -179,7 +203,7 @@
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_C" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >Range Search (kD Tree) (DSL_2_C: Aize Online Judge)</font></b>
+          <b><font size="2" color="#000" face="Comic Sans MS" >Range Search (DSL_2_C: Aize Online Judge)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
@@ -270,7 +294,92 @@
                   print(a[0])
               print("")
 
-          #Time Limit Exceeded (Judge: 12/24	Python3	CPU: 06:00 sec	Memory: 217912 KB	Length: 1861 B)
+          #Time Limit Exceeded (Judge: 12/24, Python3	CPU: 06:00 sec, Memory: 217912 KB, Length: 1861 B)
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="02/28/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">02/28/2021</font></b></br>
+        I made a program to solve the shortest path problem about all pairs of
+        weightes directed graph using
+        <a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm">Floyd-Warshall algorithm</a>.
+        Floyd-Warshall algorithm can find the shortest path even if the graph G has negative weights,
+        as long as there is no negative cycle in G.
+        A negative cycle is a cycle whose edges sum to a negative value.
+        This time, this program not only finds the shorest path,
+        but also detects if G is a negative cycle.
+        The condition that G contains a negative cycle is that
+        there exists i such that G[i][i] is negative.
+        For example, if you have 1 to 10 nodes,
+        of which there is a 3&rarr;5&rarr;6&rarr;9&rarr;3 cycle and each edge has
+        a weight of -1, the cost of one lap becomes -4.
+        The values of G[3][3], G[5][5], G[6][6] and G[9][9] are initially 0,
+        but when the Floyd-Warshall method is complete, they are all -4 and G contain negative cycles.
+        Then, the time complexity of Floyd-Warshall algorithm becomes O(n<sup>3</sup>).
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="//judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_C" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >All Pairs Shortest Path (DSL_2_C: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          def Floyd_Warshall(V,D):
+              for k in range(V):
+                  for i in range(V):
+                      if D[i][k] == float('inf'):
+                          continue
+                      for j in range(V):
+                          if D[k][j] == float('inf'):
+                              continue
+                          D[i][j] = min(D[i][j],D[i][k]+D[k][j])
+
+          def main():
+              from sys import stdin
+
+              input = stdin.readline
+
+              V,E = map(int,input().split())
+
+              D = [[None for _ in range(V)] for _ in range(V)]
+
+              for i in range(V):
+                  for j in range(V):
+                      if i == j:
+                          D[i][j] = 0
+                      else:
+                          D[i][j] = float('inf')
+
+              for _ in range(E):
+                  s,t,d = map(int,input().split())
+                  D[s][t] = d
+
+              Floyd_Warshall(V,D)
+
+              negative = False
+              for i in range(V):
+                  if D[i][i] < 0:
+                      negative = True
+
+              if negative:
+                  print("NEGATIVE CYCLE")
+                  exit()
+              else:
+                  for d in D:
+                      print(" ".join(map(str,[s if s != float('inf') else 'INF' for s in d])))
+
+
+          if __name__ == "__main__":
+              main()
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
@@ -294,7 +403,7 @@
     </h>
     &emsp;
     <h>
-    <a href="" class="no-underline" target="_blank" rel="noopener noreferrer">
+    <a href="{% url 'blog_202103' %}" class="no-underline" target="_blank" rel="noopener noreferrer">
       &#9655; Next Month
     </a>
     </h>

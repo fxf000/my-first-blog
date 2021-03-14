@@ -56,3 +56,6 @@ def blog_202101(request):
 
 def blog_202102(request):
     return render(request, 'blog/2021/202102.html')
+
+def blog_202103(request):
+    return render(request, 'blog/2021/202103.html')
