@@ -6,6 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DAILY RECORD</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="09/2020">
   <meta name="keywords" content="programming, python, Algorithm, Machine Learning, Natural Language Processing">
@@ -51,6 +52,1164 @@
       &#9655; Next Month
     </a>
     </h>
+    <section id="09/01/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/01/2021</font></b></br>
+        I wrote a program about morphological analysis in natural language processing.
+        Morphological analysis is the work of dividing each morpheme,
+        the smallest unit that has meaning in a language,
+        and determining the speech of each morpheme.
+
+        <a href="https://en.wikipedia.org/wiki/Part-of-speech_tagging">part-of-speech (POS) tagging</a>
+        POS tagging
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Reading the result of part-of-speech tagging (30: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          file_name = "./neko.txt.mecab"
+
+          morphemes = []
+          sentences = []
+
+          with open(file_name,mode="r") as f:
+              for line in f:
+                  if line != "EOS\n":
+                      fields = line.split("\t")
+                      if len(fields) != 2 or fields[0] == "":
+                          continue
+                      else:
+                          attribute = fields[1].split(",")
+                          morpheme = {"surface":fields[0],
+                                      "base":attribute[6],
+                                      "PoS":attribute[0],
+                                      "PoS1":attribute[1]}
+                          morphemes.append(morpheme)
+                  else:
+                      sentences.append(morphemes)
+                      morphemes = []
+
+          print(sentences[2])
+          for sentence in sentences[2]:
+              print(sentence)
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/03/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/03/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_D" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >The Number of Inversions (ALDS1_5_D: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          SENTINEL = float("inf")
+
+          def merge(S,N,left,mid,right):
+              cnt = 0
+              n1 = mid-left
+              n2 = right-mid
+              L = [None]*(n1+1)
+              R = [None]*(n2+1)
+              for i in range(0,n1,1):
+                  L[i] = S[left+i]
+              for i in range(0,n2,1):
+                  R[i] = S[mid+i]
+              L[n1] = R[n2] = SENTINEL
+              i = j = 0
+              for k in range(left,right,1):
+                  if L[i] <= R[j]:
+                      S[k] = L[i]
+                      i = i+1
+                  else:
+                      S[k] = R[j]
+                      j = j+1
+                      cnt = cnt+n1-i
+              return cnt
+
+          def mergeSort(S,N,left,right):
+              if (left+1) < right:
+                  mid = (left+right)//2
+                  v1 = mergeSort(S,N,left,mid)
+                  v2 = mergeSort(S,N,mid,right)
+                  v3 = merge(S,N,left,mid,right)
+                  return v1+v2+v3
+              else:
+                  return 0
+
+
+          def main():
+              n = int(input())
+              A = list(map(int,input().split()))
+
+              ans = mergeSort(A,n,0,n)
+              print(ans)
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/07/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/07/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_6_D" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Minimum Cost Sort (ALDS1_6_D: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import sys
+
+          w_max = 10000
+
+          def solve(n,A):
+              ans = 0
+              B = [None]*n
+              V = [None]*n
+              x = w_max
+              for i in range(n):
+                  x = min(x,A[i])
+              for i in range(n):
+                  B[i] = A[i]
+                  V[i] = False
+
+              B.sort()
+
+              T = {B[i]: i for i in range(n)}
+              for i in range(n):
+                  if V[i] == True:
+                      continue
+                  cur = i
+                  S = 0
+                  m = w_max
+                  an = 0
+                  while 1 == True:
+                      V[cur] = True
+                      an += 1
+                      v = A[cur]
+                      m = min(m,v)
+                      S += v
+                      cur = T[v]
+                      if V[cur] == True:
+                          break
+                  ans += min(S+(an-2)*m,S+m+(an+1)*x)
+
+              return ans
+
+
+          def main():
+              input = sys.stdin.readline
+
+              n = int(input())
+              A = list(map(int,input().split()))
+
+              print(solve(n,A))
+
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/10/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/10/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Verbs (31: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+          file_name = "./neko.txt.mecab"
+
+          morphemes = []
+          sentences = []
+
+          with open(file_name,mode='r') as f:
+              for line in f:
+                  if line != "EOS\n":
+                      fields = line.split("\t")
+                      if len(fields) != 2 or fields[0] == "":
+                          continue
+                      else:
+                          attribute = fields[1].split(",")
+                          morpheme = {"surface":fields[0],
+                                      "base":attribute[6],
+                                      "PoS":attribute[0],
+                                      "PoS1":attribute[1]}
+                          morphemes.append(morpheme)
+                  else:
+                      sentences.append(morphemes)
+                      morphemes = []
+
+          verb_set = set()
+
+          for sentence in sentences:
+              for morpheme in sentence:
+                  if morpheme["PoS"] == "動詞":
+                      verb_set.add(morpheme["surface"])
+
+
+          print(f"動詞の表層形の種類：{len(verb_set)}")
+          print(f"-----表層形のサンプル-----")
+          for verb in list(verb_set)[:10]:
+              print(verb)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Base forms of verbs (32: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+          file_name = "./neko.txt.mecab"
+
+          morphemes = []
+          sentences = []
+
+          with open(file_name,mode="r") as f:
+              for line in f:
+                  if line != "EOS\n":
+                      fields = line.split("\t")
+                      if len(fields) != 2 or fields[0] == "":
+                          continue
+                      else:
+                          attribute = fields[1].split(",")
+                          morpheme = {"surface":fields[0],
+                                      "base":attribute[6],
+                                      "POS":attribute[0],
+                                      "POS1":attribute[1]}
+                          morphemes.append(morpheme)
+                  else:
+                      sentences.append(morphemes)
+                      morphemes = []
+
+
+          infinitive_set = set()
+
+          for sentence in sentences:
+              for morpheme in sentence:
+                  if morpheme["POS"] == "動詞":
+                      infinitive_set.add(morpheme["base"])
+
+          #print(infinitive_set)
+          print(f"動詞の原形の種類：{len(infinitive_set)}")
+          print(f"-----動詞の原形サンプル-----")
+          for infinitive in list(infinitive_set)[:10]:
+              print(infinitive)
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/11/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/11/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_7_A" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Rooted Trees (ALDS1_7_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          NIL = -1
+
+
+          class Node():
+              def __init__(self,parent,left,right):
+                  self.parent = parent
+                  self.left = left
+                  self.right = right
+
+
+          def setDepth(node,depth):
+              D[node] = depth
+              if T[node].right != NIL:
+                  setDepth(T[node].right,depth)
+              if T[node].left != NIL:
+                  setDepth(T[node].left,depth+1)
+
+          n = int(input())
+          T = [Node(NIL,NIL,NIL) for _ in range(n)]
+          D = {}
+
+          for i in range(n):
+              id,k,*C = map(int,input().split())
+              for j,c in enumerate(C):
+                  if j == 0:
+                      T[id].left = c
+                  else:
+                      T[left].right = c
+                  left = c
+                  T[c].parent = id
+
+          root = 0
+          for i,t in enumerate(T):
+              if t.parent == NIL:
+                  root = i
+
+          setDepth(root,0)
+
+          for i,t in enumerate(T):
+              cs = []
+              c = t.left
+              while c != NIL:
+                  cs.append(c)
+                  c = T[c].right
+              if t.parent == NIL:
+                  print("node {}: parent = {}, depth = {}, root, {}".
+                          format(i,t.parent,D[i],cs))
+              elif t.left == NIL:
+                  print("node {}: parent = {}, depth = {}, leaf, {}".
+                          format(i,t.parent,D[i],cs))
+              else:
+                  print("node {}: parent = {}, depth = {}, internal node, {}".
+                          format(i,t.parent,D[i],cs))
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/14/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/14/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_7_B" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Binary Tree (ALDS1_7_B: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          NIL = -1
+
+          class Node():
+              def __init__(self,parent,left,right):
+                  self.parent = parent
+                  self.left = left
+                  self.right = right
+
+
+          def setDepth(node,depth):
+              if node == NIL:
+                  return
+              D[node] = depth
+              setDepth(T[node].left,depth+1)
+              setDepth(T[node].right,depth+1)
+              return D[node]
+
+
+          def setHeight(node):
+              h1 = h2 = 0
+              if T[node].left != NIL:
+                  h1 = setHeight(T[node].left)+1
+              if T[node].right != NIL:
+                  h2 = setHeight(T[node].right)+1
+              H[node] = max(h1,h2)
+              return H[node]
+
+
+          def getSibling(node):
+              if T[node].parent == NIL:
+                  return NIL
+              if T[T[node].parent].left != node and T[T[node].parent].left != NIL:
+                  return T[T[node].parent].left
+              if T[T[node].parent].right != node and T[T[node].parent].right != NIL:
+                  return T[T[node].parent].right
+              return NIL
+
+
+
+          n = int(input())
+          T = [Node(NIL,NIL,NIL) for _ in range(n)]
+          D = {}
+          H = {}
+
+          for i in range(n):
+              id,l,r = map(int,input().split())
+              T[id].left = l
+              T[id].right = r
+              if l != NIL:
+                  T[l].parent = id
+              if r != NIL:
+                  T[r].parent = id
+
+          root = 0
+          for i in range(n):
+              if T[i].parent == NIL:
+                  root = i
+
+          setDepth(root,0)
+          setHeight(root)
+
+          for i,t in enumerate(T):
+              deg = 0
+              if t.left != NIL:
+                  deg += 1
+              if t.right != NIL:
+                  deg += 1
+              if t.parent == NIL:
+                  print("node {}: parent = {}, sibling = {}, degree = {}, depth = {}, height = {}, root"
+                          .format(i, t.parent, getSibling(i), deg, D[i], H[i]))
+              elif t.left == NIL and t.right == NIL:
+                  print("node {}: parent = {}, sibling = {}, degree = {}, depth = {}, height = {}, leaf"
+                          .format(i, t.parent, getSibling(i), deg, D[i], H[i]))
+              else:
+                  print("node {}: parent = {}, sibling = {}, degree = {}, depth = {}, height = {}, internal node"
+                          .format(i, t.parent, getSibling(i), deg, D[i], H[i]))
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/16/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/16/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >「AのB」 (33: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+          file = "./neko.txt.mecab"
+
+          sentence = []
+          sentences = []
+
+          with open(file,mode="r") as f:
+              for line in f:
+                  if line != "EOS\n":
+                      fields = line.split("\t")
+                      if len(fields) != 2 or fields[0] == "":
+                          continue
+                      else:
+                          attribute = fields[1].split(",")
+                          morpheme = {"surface":fields[0],
+                                      "base":attribute[6],
+                                      "pos":attribute[0],
+                                      "pos1":attribute[1]}
+                          sentence.append(morpheme)
+                  else:
+                      sentences.append(sentence)
+                      sentence = []
+
+          Noun_phrase = set()
+
+          for sentence in sentences:
+              for i in range(1,len(sentence)-1):
+                  if sentence[i-1]["pos"] == "名詞" and sentence[i]["surface"] == "の" and sentence[i+1]["pos"] == "名詞":
+                      Noun_phrase.add(sentence[i-1]["surface"]+sentence[i]["surface"]+sentence[i+1]["surface"])
+
+
+          print(f"名詞句（AのB）の種類：{len(Noun_phrase)}")
+          print(f"-----サンプル-----")
+          for noun in list(Noun_phrase)[0:10]:
+              print(noun)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Consecutive nouns (34: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+          file = "./neko.txt.mecab"
+
+          sentence = []
+          sentences = []
+
+          with open(file,mode="r") as f:
+              for line in f:
+                  if line != "EOS\n":
+                      fields = line.split("\t")
+                      if len(fields) != 2 or fields[0] == "":
+                          continue
+                      else:
+                          attribute = fields[1].split(",")
+                          morpheme = {"surface":fields[0],
+                                      "base":attribute[6],
+                                      "pos":attribute[0],
+                                      "pos1":attribute[1]}
+                          sentence.append(morpheme)
+                  else:
+                      sentences.append(sentence)
+                      sentence = []
+
+          Nouns_set = set()
+
+          for sentence in sentences:
+              nouns = ""
+              count = 0
+              for morpheme in sentence:
+                  if morpheme["pos"] == "名詞":
+                      nouns = "".join([nouns,morpheme["surface"]])
+                      count += 1
+                  elif count >= 2:
+                      Nouns_set.add(nouns)
+                      nouns = ""
+                      count = 0
+                  else:
+                      nouns = ""
+                      count = 0
+              if count >= 2:
+                  Nouns_set.add(nouns)
+
+          print(f"連接する名詞数：{len(Nouns_set)}")
+          print(f"-----連接する名詞の最長一致から１０個-----")
+
+          Nouns_list = list(Nouns_set)
+          Nouns_list.sort(key=len)
+
+          for nouns in Nouns_list[-1:-11:-1]:
+              print(nouns)
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Frequency of words (35: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          # coding: utf-8
+          from collections import defaultdict
+
+          file = "./neko.txt.mecab"
+
+          sentence = []
+          sentences = []
+
+          with open(file,mode="r") as f:
+              for line in f:
+                  if line != "EOS\n":
+                      fields = line.split("\t")
+                      if len(fields) != 2 or fields[0] == "":
+                          continue
+                      else:
+                          attribute = fields[1].split(",")
+                          morpheme = {"surface":fields[0],
+                                      "base":attribute[6],
+                                      "pos":attribute[0],
+                                      "pos1":attribute[1]}
+                          sentence.append(morpheme)
+                  else:
+                      sentences.append(sentence)
+                      sentence = []
+
+          word_frequency = defaultdict(int)
+
+          for sentence in sentences:
+              for morpheme in sentence:
+                  if morpheme["pos"] != "記号":
+                      word_frequency[morpheme["base"]] += 1
+
+          ans = sorted(word_frequency.items(),key=lambda x:x[1],reverse=True)
+
+          for word in ans[:10]:
+              print(word)
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/18/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/18/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_7_C" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Tree Walk (ALDS1_7_C: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          NIL = -1
+
+
+          class Node():
+              def __init__(self,parent,left,right):
+                  self.parent = parent
+                  self.left = left
+                  self.right = right
+
+
+          def preParse(node):
+              if node == NIL:
+                  return
+              print(" "+str(node),end="")
+              preParse(T[node].left)
+              preParse(T[node].right)
+
+          def inParse(node):
+              if node == NIL:
+                  return
+              inParse(T[node].left)
+              print(" "+str(node),end="")
+              inParse(T[node].right)
+
+          def postParse(node):
+              if node == NIL:
+                  return
+              postParse(T[node].left)
+              postParse(T[node].right)
+              print(" "+str(node),end="")
+
+          n = int(input())
+          T = [Node(NIL,NIL,NIL) for _ in range(n)]
+
+          for i in range(n):
+              id,l,r = map(int,input().split())
+              T[id].left = l
+              T[id].right = r
+              if l != NIL:
+                  T[l].parent = id
+              if r != NIL:
+                  T[r].parent = id
+
+          root = 0
+          for i in range(n):
+              if T[i].parent == NIL:
+                  root = i
+
+          print("Preorder")
+          preParse(root)
+          print("")
+
+          print("Inorder")
+          inParse(root)
+          print("")
+
+          print("Postorder")
+          postParse(root)
+          print("")
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/19/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/19/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_7_D" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Reconstruction of the Tree (ALDS1_7_D: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          n = int(input())
+          pre_order = [int(x) for x in input().split()]
+          in_order = [int(x) for x in input().split()]
+
+          post_order = []
+          pos = 0
+
+          def reconstruction(l,r):
+              global pos,post_order
+              if l >= r:
+                  return
+              root = pre_order[pos]
+              pos += 1
+              m = in_order.index(root)
+              reconstruction(l,m)
+              reconstruction(m+1,r)
+              post_order.append(str(root))
+
+
+          reconstruction(0,n)
+
+          print(" ".join(post_order))
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/23/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/23/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_8_A" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Binary Search Tree: Insertion (ALDS1_8_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import sys
+
+
+          class Node():
+              def __init__(self,key):
+                  self.key = key
+                  self.parent = None
+                  self.left = None
+                  self.right = None
+
+
+          class BinarySeachTree():
+              def __init__(self):
+                  self.root = None
+                  self.NIL = None
+
+              def insert(self,key):
+                  y = self.NIL
+                  x = self.root
+                  z = Node(key)
+                  while x != self.NIL:
+                      y = x
+                      if z.key < x.key:
+                          x = x.left
+                      else:
+                          x = x.right
+                  z.parent = y
+                  if y == self.NIL:
+                      self.root = z
+                  else:
+                      if z.key < y.key:
+                          y.left = z
+                      else:
+                          y.right = z
+
+              def inorder(self,u):
+                  if u == self.NIL:
+                      return
+                  self.inorder(u.left)
+                  print(" "+str(u.key),end="")
+                  self.inorder(u.right)
+
+              def preorder(self,u):
+                  if u == self.NIL:
+                      return
+                  print(" "+str(u.key),end="")
+                  self.preorder(u.left)
+                  self.preorder(u.right)
+
+              def output(self):
+                  self.inorder(self.root)
+                  print("")
+                  self.preorder(self.root)
+                  print("")
+
+
+          Tree = BinarySeachTree()
+          n = int(sys.stdin.readline())
+
+          for i in range(n):
+              line = sys.stdin.readline().split()
+              if line[0] == "insert":
+                  k = line[1]
+                  Tree.insert(int(k))
+              elif line[0] == "print":
+                  Tree.output()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/24/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/24/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Top-10 frequent words (36: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          from collections import defaultdict
+          import matplotlib.pyplot as plt
+          import japanize_matplotlib
+
+          file = "./neko.txt.mecab"
+
+          sentence = []
+          sentences = []
+
+          with open(file,mode='r') as f:
+              for line in f:
+                  if line != "EOS\n":
+                      fields = line.split("\t")
+                      if len(fields) != 2 or fields[0] == "":
+                          continue
+                      else:
+                          attribute = fields[1].split(",")
+                          if attribute[1] != "空白":
+                              morphene = {"surface":fields[0],
+                                          "base":attribute[6],
+                                          "pos":attribute[0],
+                                          "pos1":attribute[1]}
+                              sentence.append(morphene)
+                  else:
+                      sentences.append(sentence)
+                      sentence = []
+
+          word_frequency = defaultdict(int)
+
+          for sentence in sentences:
+              for morphene in sentence:
+                  if morphene["pos"] != "記号":
+                      word_frequency[morphene["base"]] += 1
+
+          ans = sorted(word_frequency.items(), key=lambda x:x[1], reverse=True)
+
+          X = [word[0] for word in ans[0:10]]
+          Y = [word[1] for word in ans[0:10]]
+
+          plt.bar(X,Y)
+          plt.title("単語の頻度上位10語")
+          plt.xlabel("単語")
+          plt.ylabel("頻出回数")
+
+          for x, y in zip(X, Y):
+              plt.text(x, y, y, ha='center', va='bottom')
+
+          plt.show()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/25/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/25/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Top-10 words co-occurring with 「猫」 (37: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          from collections import Counter
+          import matplotlib.pyplot as plt
+          import japanize_matplotlib
+
+          file = "./neko.txt.mecab"
+
+          sentence = []
+          sentences = []
+
+          with open(file,mode="r") as f:
+              for line in f:
+                  if line != "EOS\n":
+                      fields = line.split("\t")
+                      if len(fields) != 2 or fields[0] == "":
+                          continue
+                      else:
+                          attribute = fields[1].split(",")
+                          if attribute[1]!= "空白":
+                              morphene = {"surface":fields[0],
+                                          "base":attribute[6],
+                                          "pos":attribute[0],
+                                          "pos1":attribute[1]}
+                              sentence.append(morphene)
+                  else:
+                      sentences.append(sentence)
+                      sentence = []
+
+          remove_nekos = []
+
+          for sentence in sentences:
+              if any(morphene["base"] == "猫" for morphene in sentence):
+                  remove_neko = [morphene["base"] for morphene in sentence if morphene["base"] != "猫" and
+                  morphene["pos"] == "名詞" and morphene["base"] != "*\n"]
+                  remove_nekos.extend(remove_neko)
+
+          co_occurrence = Counter(remove_nekos)
+          X,Y = list(zip(*co_occurrence.most_common(10)))
+
+          plt.bar(X,Y)
+          plt.title("「猫」と共起頻度の高い上位10語")
+          plt.xlabel("単語")
+          plt.ylabel("「猫」との共起頻度",labelpad=15)
+          plt.grid(color='#999999',linestyle='--')
+
+          for x,y in zip(X,Y):
+              plt.text(x,y,y,ha='center', va='bottom')
+
+          plt.show()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/26/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/26/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Histogram (38: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          from collections import defaultdict,Counter
+          import matplotlib.pyplot as plt
+          import japanize_matplotlib
+
+          file = "./neko.txt.mecab"
+
+          sentence = []
+          sentences = []
+
+          with open(file,mode="r") as f:
+              for line in f:
+                  if line != "EOS\n":
+                      fields = line.split("\t")
+                      if len(fields) != 2 or fields[0] == "":
+                          continue
+                      else:
+                          attribute = fields[1].split(",")
+                          if attribute[1]!= "空白":
+                              morpheme = {"surface":fields[0],
+                                          "base":attribute[6],
+                                          "pos":attribute[0],
+                                          "pos1":attribute[1]}
+                              sentence.append(morpheme)
+                  else:
+                      sentences.append(sentence)
+                      sentence = []
+
+          word_frequency = defaultdict(int)
+
+          for sentence in sentences:
+              for morphene in sentence:
+                  if morphene["pos"] != "記号" and morphene["base"] != "*\n":
+                       word_frequency[morphene["base"]] += 1
+
+          apperance = word_frequency.values()
+          ret = plt.hist(apperance,bins=15, range=(1,15))
+
+          plt.grid(color='#999999',linestyle='--')
+          plt.xlabel("出現頻度")
+          plt.ylabel("単語の種類数")
+          plt.title("単語の出現頻度ヒストグラム")
+
+          plt.show()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="09/30/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">09/30/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_8_B" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Binary Search Tree: Search (ALDS1_8_B: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import sys
+
+
+          class Node():
+              def __init__(self,key):
+                  self.key = key
+                  self.parent = None
+                  self.left = None
+                  self.right = None
+
+
+          class BinaryTree():
+              def __init__(self):
+                  self.root = None
+
+              def insert(self,key):
+                  y = None
+                  x = self.root
+                  z = Node(key)
+                  while x != None:
+                      y = x
+                      if z.key < x.key:
+                          x = x.left
+                      else:
+                          x = x.right
+                  z.parent = y
+                  if y == None:
+                      self.root = z
+                  elif z.key < y.key:
+                      y.left = z
+                  else:
+                      y.right = z
+
+              def find(self,key):
+                  z = Node(key)
+                  x = self.root
+                  while x != None and z.key != x.key:
+                      if z.key < x.key:
+                          x = x.left
+                      else:
+                          x = x.right
+                  return x
+
+              def inorder(self,u):
+                  if u == None:
+                      return
+                  self.inorder(u.left)
+                  print(" "+str(u.key),end="")
+                  self.inorder(u.right)
+
+              def preorder(self,u):
+                  if u == None:
+                      return
+                  print(" "+str(u.key),end="")
+                  self.preorder(u.left)
+                  self.preorder(u.right)
+
+              def output_order(self):
+                  self.inorder(self.root)
+                  print("")
+                  self.preorder(self.root)
+                  print("")
+
+
+          def main():
+              m = int(sys.stdin.readline())
+              Tree = BinaryTree()
+
+              for i in range(m):
+                  command = sys.stdin.readline().split()
+                  if command[0] == "insert":
+                      Tree.insert(int(command[1]))
+                  elif command[0] == "find":
+                      x = Tree.find(int(command[1]))
+                      if x == None:
+                          print("no")
+                      else:
+                          print("yes")
+                  elif command[0] == "print":
+                      Tree.output_order()
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
   </br>
     <h>
     <a href="{% url 'blog_202008' %}" class="no-underline" target="_blank" rel="noopener noreferrer">

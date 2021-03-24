@@ -6,6 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DAILY RECORD</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="03/2021">
   <meta name="keywords" content="programming, python, Algorithm, Machine Learning, Natural Language Processing">
@@ -142,6 +143,229 @@
           Category:
           <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
             Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="03/04/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">03/04/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          test
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="03/09/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">03/09/2021</font></b></br>
+        test
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          test
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="03/09/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">03/09/2021</font></b></br>
+        I solved a problem about
+        <a href="https://en.wikipedia.org/wiki/Topological_sorting">Topological Sort</a>.
+        Topological Sort is an algorithm which gives order of priority to each nodes
+        in the directed acyclic graph (DAG) by
+        relying on the edges and arrenges them so that
+        it can go around all the nodes.
+        A typical use case for Topological Sort is job scheduling.
+        For example, given tasks 0 to 5 as shown in the figure below,
+        task 0 and 3 must be completed in order to start task 1.
+        In this case, the job scheduling is 0&rarr;3&rarr;1&rarr;4&rarr;5&rarr;2.
+        Then, this program uses breadth-first search (DFS) for Topological Sort,
+        and the time complexity is O(|V|+|E|).
+        <div class="image">
+          <div class="img-1" align="center"><img src="{% static './images/topological_sort.png' %}" width="50%" height="50%"></div>
+        </div>
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          from sys import stdin
+          from collections import deque
+
+          input = stdin.readline
+
+          V,E = map(int,input().split())
+
+          G = [deque() for _ in range(V)]
+          indeg = [0 for _ in range(V)]
+          flag = [False for _ in range(V)]
+          out = deque()
+
+          for _ in range(E):
+              i,j = map(int,input().split())
+              G[i].append(j)
+              indeg[j] += 1
+
+          def tsort():
+              for i in range(V):
+                  if indeg[i] == 0 and flag[i] == False:
+                      #print(i)
+                      bfs(i)
+
+          def bfs(s):
+              q = deque()
+              q.append(s)
+              flag[s] = True
+              while q:
+                  u = q.popleft()
+                  out.append(u)
+                  for t in range(len(G[u])):
+                      v = G[u][t]
+                      indeg[v] -= 1
+                      if indeg[v] == 0 and flag[v] == False:
+                          flag[v] = True
+                          q.append(v)
+
+          def main():
+              tsort()
+
+              for ans in out:
+                  print(ans)
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="03/24/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">03/24/2021</font></b></br>
+        I wrote a program to find
+        <a href="https://en.wikipedia.org/wiki/Biconnected_component">articulatin points</a>
+        in the undirected graph.
+        In a connected graph, when the subgraph obtained by deleting
+        a vertex u and all edges of u are unconnected graph,
+        the vertex u is called a articulation point or
+        a cut vertex.
+        For example, considering a connected graph as shown in the figure below,
+        the articulation point is node 3.
+        Then, the problem of finding articulation points can be solved by
+        using a depth-first search (DFS),
+        and the time complexity is O(|V|+|E|).
+        <div class="image">
+          <div class="img-1" align="center"><img src="{% static './images/articulation_point.png' %}" width="70%" height="70%"></div>
+        </div>
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Articulation Points (GRL_3_A: Aize Online Judge)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          def art_points():
+              global timer,visited
+              visited = [False for _ in range(V)]
+              timer = 1
+              dfs(0,-1)
+              ap = set()
+              np = 0
+              for i in range(1,V,1):
+                  p = parent[i]
+                  if p == 0:
+                      np += 1
+                  elif prenum[p] <= lowest[i]:
+                      ap.add(p)
+              if np > 1:
+                  ap.add(0)
+              for ans in sorted(ap):
+                  print(ans)
+
+          def dfs(current,prev):
+              global timer,visited
+              prenum[current] = lowest[current] = timer
+              timer += 1
+              visited[current] = True
+              for i in range(len(G[current])):
+                  next = G[current][i]
+                  if visited[next] != True:
+                      parent[next] = current
+                      dfs(next,current)
+                      lowest[current] = min(lowest[current],lowest[next])
+                  elif next != prev:
+                      lowest[current] = min(lowest[current],prenum[next])
+
+          def main():
+              import sys
+              global V,G,prenum,parent,lowest
+
+              sys.setrecursionlimit(10**7)
+              input = sys.stdin.readline
+
+              V,E = map(int,input().split())
+
+              G = [[] for _ in range(V)]
+              for _ in range(E):
+                  s,t = map(int,input().split())
+                  G[s].append(t)
+                  G[t].append(s)
+
+              prenum = [None for _ in range(V)]
+              parent = [None for _ in range(V)]
+              lowest = [None for _ in range(V)]
+
+              art_points()
+
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
           </a>
           </font></b>
         </p>
