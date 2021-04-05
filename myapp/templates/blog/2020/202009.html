@@ -58,11 +58,15 @@
         <b><font size="2" color="#000" face="Comic Sans MS">09/01/2021</font></b></br>
         I wrote a program about morphological analysis in natural language processing.
         Morphological analysis is the work of dividing each morpheme,
-        the smallest unit that has meaning in a language,
-        and determining the speech of each morpheme.
-
-        <a href="https://en.wikipedia.org/wiki/Part-of-speech_tagging">part-of-speech (POS) tagging</a>
-        POS tagging
+        which is the smallest unit that has meaning in a language,
+        and distinguishing the parts of speech of each morpheme.
+        Distinguishing the parts of speech,
+        which is called <a href="https://en.wikipedia.org/wiki/Part-of-speech_tagging">part-of-speech tagging (POS tagging)</a>,
+        can be done with a open source engine of morphological analusis
+        called <a href="https://taku910.github.io/mecab/">MeCab</a> for Japanese.
+        This program uses the MeCab to perform morphological analysis
+        on the sentences of the Japanese novel, "吾輩は猫である",
+        and expresses the morphemes of the each sentence as a list.
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
@@ -110,7 +114,14 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">09/03/2021</font></b></br>
-        test
+        I wrote a program to find the number of inversions
+        using <a href="{% url 'blog_202008' %}#08/18/2020">Merge Sort</a>.
+        The number of inversions is the number of pairs (i, j) that
+        satisfy a<sub>i</sub> > a<sub>j</sub> and i < j
+        for a given sequence A = {a<sub>0</sub>, a<sub>1</sub>, ··· , a<sub>n-1</sub>}.
+        Although it can be obtained by using <a href="{% url 'blog_202006' %}#06/02/2020">Bubble Sort</a>,
+        the time complexity becomes O(n<sup>2</sup>),
+        so Merge Sort was used.
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_D" target="_blank" rel="noopener noreferrer">
@@ -177,7 +188,10 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">09/07/2021</font></b></br>
-        test
+        I wrote a program to find the minimum cost of
+        lining up the luggages in ascending order of weight.
+        This program gives the input the number of luggages and
+        the weight of each luggage.
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_6_D" target="_blank" rel="noopener noreferrer">
@@ -250,7 +264,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">09/10/2021</font></b></br>
-        test
+        tsst
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
