@@ -264,7 +264,11 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">09/10/2021</font></b></br>
-        tsst
+        I wrote two programs related to natural language processing. 
+        The first is a program that extracts surface forms of all verbs existing in 
+        the <a href="https://nlp100.github.io/data/neko.txt">text</a> 
+        as a continuation of the <a href="{% url 'blog_202009' %}#09/01/2020">question 30</a>. 
+        The second is a program that extracts base forms of all verbs existing in the text.  
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch04.html" target="_blank" rel="noopener noreferrer">
@@ -365,7 +369,23 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">09/11/2021</font></b></br>
-        test
+        I created a program about 
+        <a href="https://en.wikipedia.org/wiki/Tree_(graph_theory)">Rooted Trees</a>. 
+        A rooted tree has nodes depending on the depth of the tree, 
+        and each node can be either a root, an internal node, or a leaf. 
+        For example, suppose there are nodes 0 to 5 as shown in the figure below. 
+        Here, each node has a parent or a children. 
+        A node that has a child without a parent, such as node 0, is called a root. 
+        A node that has both a parent and a child, such as node 1, is called a internal node. 
+        And, a node that has a parent but no child is called a leaf. 
+        The problem gives child and parent information, but not depth, 
+        so we need to find the depth. 
+        This time, I recursively calculated its depth. 
+        When the depth is calculated recursively, 
+        each node is visited once, so the time complexity is O(n).
+        <div class="image">
+          <div class="img-1" align="center"><img src="{% static './images/rooted_tree.png' %}" alt="" width="50%" height="50%"></div>
+        </div>
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_7_A" target="_blank" rel="noopener noreferrer">
