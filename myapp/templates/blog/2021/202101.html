@@ -56,15 +56,60 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">01/11/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Dijkstra's Algorithm: Priority Queue (ALDS1_12_C: Aize Online Judge)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          from sys import stdin
+          import heapq
+
+          input = stdin.readline
+
+          n = int(input().rstrip())
+          adj = [None for _ in range(n)]
+          color = ["W" for _ in range(n)]
+          d = [float('inf') for _ in range(n)]
+
+          def dijkstra(s):
+              PQ = []
+              d[s] = 0
+              heapq.heappush(PQ,(0,s))
+              color[s] = "G"
+              while PQ:
+                  f = heapq.heappop(PQ)
+                  u = f[1]
+                  color[u] = "B"
+                  if d[u] < f[0]:
+                      continue
+                  for i in range(len(adj[u])):
+                      v = adj[u][i][0]
+                      if color[v] == "B":
+                          continue
+                      if d[u]+adj[u][i][1] < d[v]:
+                          d[v] = d[u]+adj[u][i][1]
+                          color[v] = "G"
+                          heapq.heappush(PQ,(d[v],v))
+
+          def main():
+              for _ in range(n):
+                  u,k,*vc = map(int,input().split())
+                  make_pair = [None for _ in range(k)]
+                  for i,(v,c) in enumerate(zip(vc[::2],vc[1::2])):
+                      make_pair[i] = (v,c)
+                  adj[u] = make_pair
+
+              dijkstra(0)
+
+              for j in range(n):
+                  print(str(j)+" "+str(-1 if d[j]==float('inf') else d[j]))
+
+
+          if __name__ == "__main__":
+              main()
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
@@ -80,22 +125,57 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">01/13/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch06.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Feature extraction (51: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import pandas as pd
+          import string
+          import re
+          from sklearn.feature_extraction.text import TfidfVectorizer
+          from sklearn.feature_extraction.text import CountVectorizer
+          import numpy as np
+          from sklearn.preprocessing import normalize
+
+          def preprocessing(text):
+              table = str.maketrans(string.punctuation,' '*len(string.punctuation))
+              text = text.translate(table)
+              text = text.lower()
+              text = re.sub('[0-9]+','0',text)
+              return text
+
+          train = pd.read_table("./train.txt")
+          verif = pd.read_table("./verif.txt")
+          test = pd.read_table("./test.txt")
+
+          df = pd.concat([train,verif,test],axis=0)
+
+          df_r = df.reset_index()
+          df_r['TITLE'] = df_r['TITLE'].map(lambda x: preprocessing(x))
+
+          vec_tfidf = TfidfVectorizer(min_df=10,ngram_range=(1,2),token_pattern='(?u)\\b\\w+\\b')
+
+          TfIdf = vec_tfidf.fit_transform(df_r['TITLE'])
+          df_TfIdf = pd.DataFrame(data=TfIdf.toarray(), columns=vec_tfidf.get_feature_names())
+
+          df_train_TfIdf = df_TfIdf[:len(train)]
+          df_verif_TfIdf = df_TfIdf[len(train):(len(train)+len(verif))]
+          df_test_TfIdf = df_TfIdf[(len(train)+len(verif)):]
+
+          df_train_TfIdf.to_csv("./train_feature.txt",sep="\t",index=False)
+          df_verif_TfIdf.to_csv("./verif_feature.txt",sep="\t",index=False)
+          df_test_TfIdf.to_csv("./test_feature.txt",sep="\t",index=False)
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
-            Programming
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
           </a>
           </font></b>
         </p>

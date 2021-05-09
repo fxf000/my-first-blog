@@ -56,15 +56,59 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">12/06/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_B" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Dijkstra's Algorithm: Adjacensy Matrix (DSL_1_A: Aize Online Judge)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import sys
+
+          input = sys.stdin.readline
+
+          n = int(input().rstrip())
+          INF = float('inf')
+
+          M = [[INF for _ in range(n)] for _ in range(n)]
+          color = ["White" for _ in range(n)]
+          D = [INF for _ in range(n)]
+          p = [None for _ in range(n)]
+
+          def dijkstra(s):
+              D[s] = 0
+              p[s] = -1
+              while True:
+                  mincost = INF
+                  for i in range(n):
+                      if color[i] != "Black" and D[i] < mincost:
+                          mincost = D[i]
+                          u = i
+                  if mincost == INF:
+                      break
+                  color[u] = "Black"
+                  for v in range(n):
+                      if color[v] != "Black" and M[u][v] != INF:
+                          if D[u]+M[u][v] < D[v]:
+                              D[v] = D[u]+M[u][v]
+                              p[v] = u
+                              color[v] = "Gray"
+
+          def main():
+              for i in range(n):
+                  u,k,*VC = map(int,input().split())
+                  for v,c in zip(VC[::2],VC[1::2]):
+                          M[u][v] = c
+
+              dijkstra(0)
+
+              for i in range(n):
+                  print(str(i)+" "+str(-1 if D[i]==INF else D[i]))
+
+
+          if __name__ == "__main__":
+              main()
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
@@ -80,22 +124,42 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">12/08/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch06.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Download and preprocess dataset (50: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import pandas as pd
+          from sklearn.model_selection import train_test_split
+
+          file = "./NewsAggregatorDataset/newsCorpora.csv"
+          FORMAT = ["ID","TITLE","URL","PUBLISHER","CATEGORY","STORY","HOSTNAME","TIMESTAMP"]
+
+          df_1 = pd.read_csv(file,header=None,sep="\t",names=FORMAT)
+          pd.set_option('display.max_columns', None)
+
+          df_2 = df_1.loc[df_1["PUBLISHER"].
+                isin(["Reuters","Huffington Post","Businessweek","Contactmusic.com","Daily Mail"]),
+                ["CATEGORY","TITLE"]]
+
+          train_data,tv_data = train_test_split(df_2,test_size=0.2,shuffle=True,random_state=0)
+          test_data,verif_data = train_test_split(tv_data,test_size=0.5,shuffle=True,random_state=0)
+
+          train_data.to_csv("train.txt",sep="\t",index=False)
+          # head -10 train.txt
+
+          verif_data.to_csv("verif.txt",sep="\t",index=False)
+          test_data.to_csv("test.txt",sep="\t",index=False)
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
-            Programming
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
           </a>
           </font></b>
         </p>

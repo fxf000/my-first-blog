@@ -56,7 +56,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">10/01/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
@@ -131,7 +131,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">10/03/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_8_C" target="_blank" rel="noopener noreferrer">
@@ -272,7 +272,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">10/07/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
@@ -324,7 +324,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">10/12/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_9_A" target="_blank" rel="noopener noreferrer">
@@ -411,7 +411,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">10/15/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_9_C" target="_blank" rel="noopener noreferrer">
@@ -490,7 +490,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">10/19/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_10_A" target="_blank" rel="noopener noreferrer">
@@ -580,7 +580,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">10/21/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_10_B" target="_blank" rel="noopener noreferrer">
@@ -632,7 +632,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">10/22/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
@@ -710,7 +710,7 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">10/30/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
         <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
@@ -769,8 +769,10 @@
 
           for i,chunk in enumerate(sentences[1].chunks):
               if chunk.dst != -1:
-                  modified = "".join([mor.surface for mor in chunk.morphs if not mor.pos == "記号"])
-                  modifying = "".join([mor.surface for mor in sentences[1].chunks[chunk.dst].morphs if not mor.pos == "記号"])
+                  modified = "".join([mor.surface for mor in chunk.morphs 
+                            if not mor.pos == "記号"])
+                  modifying = "".join([mor.surface for mor in sentences[1].chunks[chunk.dst].morphs 
+                            if not mor.pos == "記号"])
                   print(modified,modifying,sep="\t")
         </code></pre>
       </p>

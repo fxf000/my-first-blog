@@ -151,46 +151,38 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">03/04/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch06.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Confirmation of feature weights (57: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import pickle
+          import pandas as pd
+          import numpy as np
+          from IPython.display import display
+
+          train_feature = pd.read_table("./train_feature.txt")
+          train_feature = train_feature.columns.values
+
+          with open("./LR_model.pickle",mode="rb") as fp:
+              LR = pickle.load(fp)
+
+          for c,coef in zip(LR.classes_,LR.coef_):
+              print("Category: {}".format(c))
+              weight_top10 = pd.DataFrame(train_feature[np.argsort(coef)[::-1][:10]],columns=["top10"]).T
+              weight_worst10 = pd.DataFrame(train_feature[np.argsort(coef)[:10]],columns=["worst10"]).T
+              display(pd.concat([weight_top10,weight_worst10],axis=0))
+              print("\n")
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
-            Programming
-          </a>
-          </font></b>
-        </p>
-    </section>
-    <section id="03/09/2021">
-      <hr width= 95%>
-      <p>
-        <b><font size="2" color="#000" face="Comic Sans MS">03/09/2021</font></b></br>
-        test
-        </br>
-        <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
-        </a>
-        </p>
-        <pre><code class="prettyprint linenums">
-          test
-        </code></pre>
-      </p>
-        <p style="text-align:right; margin: -25px 0px 0px 0px;">
-          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
-          Category:
-          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
-            Programming
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
           </a>
           </font></b>
         </p>
@@ -272,6 +264,191 @@
           Category:
           <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
             Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="03/10/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">03/10/2021</font></b></br>
+        <!-test->
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch06.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Change regularization parameter (58: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import pandas as pd
+          from sklearn.linear_model import LogisticRegression
+          from sklearn.metrics import accuracy_score
+          from tqdm import tqdm
+          import numpy as np
+          import matplotlib.pyplot as plt
+
+
+          train = pd.read_table("./train.txt")
+          verif = pd.read_table("./verif.txt")
+          test = pd.read_table("./test.txt")
+
+          train_feature = pd.read_table("./train_feature.txt")
+          verif_feature = pd.read_table("./verif_feature.txt")
+          test_feature = pd.read_table("./test_feature.txt")
+
+          result = []
+
+          for C in tqdm(np.logspace(-6,4,11,base=10)):
+              LR = LogisticRegression(solver='lbfgs',multi_class='auto',max_iter=10000,C=C)
+              LR.fit(train_feature,train["CATEGORY"])
+
+              pred_train = LR.predict(train_feature)
+              pred_verif = LR.predict(verif_feature)
+              pred_test = LR.predict(test_feature)
+
+              accuracy_train = accuracy_score(train["CATEGORY"],pred_train)
+              accuracy_verif = accuracy_score(verif["CATEGORY"],pred_verif)
+              accuracy_test = accuracy_score(test["CATEGORY"],pred_test)
+
+              result.append([C,accuracy_train,accuracy_verif,accuracy_test])
+
+          result = np.array(result).T
+          fig = plt.figure()
+
+          plt.plot(result[0],result[1],label="train")
+          plt.plot(result[0],result[2],label="verif")
+          plt.plot(result[0],result[3],label="test")
+          plt.title("Regularization Parameter")
+          plt.xscale("log")
+          plt.ylim(0, 1.1)
+          plt.xlabel("C: regularization parameter")
+          plt.ylabel("Accuracy score")
+          plt.legend()
+
+          plt.show()
+          fig.savefig("RegularizationParameter.png")
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="03/16/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">03/16/2021</font></b></br>
+        <!-test->
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch06.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Hyper-parameter tuning (59: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import pandas as pd
+          from sklearn.linear_model import LogisticRegression
+          from sklearn.metrics import accuracy_score
+          import optuna
+
+          train = pd.read_table("./train.txt")
+          verif = pd.read_table("./verif.txt")
+          test = pd.read_table("./test.txt")
+
+          train_feature = pd.read_table("./train_feature.txt")
+          verif_feature = pd.read_table("./verif_feature.txt")
+          test_feature = pd.read_table("./test_feature.txt")
+
+
+          def objective_func(trial):
+              global solver
+
+              C = trial.suggest_loguniform('C',1e-3,1e3)
+              LR = LogisticRegression(random_state=123,
+                                    max_iter=10000,
+                                    penalty='l2',
+                                    solver= solver,
+                                    C=C)
+              LR.fit(train_feature,train['CATEGORY'])
+              pred_verif = LR.predict(verif_feature)
+              accracy_verif = accuracy_score(verif['CATEGORY'],pred_verif)
+
+              return accracy_verif
+
+
+          solvers = ['newton-cg','lbfgs','liblinear','sag','saga']
+
+          for solver in solvers:
+              study = optuna.create_study(direction='maximize')
+              study.optimize(objective_func,timeout=480)
+
+              print("Best trial ({}): ".format(solver))
+              trial = study.best_trial
+              print(" accracy score (verif): {:.4f}".format(trial.value))
+              print(" params: ")
+              for key,value in trial.params.items():
+                  print("     {}: {}".format(key,value))
+
+              C = trial.params['C']
+              LR = LogisticRegression(random_state=123,
+                                    max_iter=10000,
+                                    penalty='l2',
+                                    solver= solver,
+                                    C=C)
+              LR.fit(train_feature,train['CATEGORY'])
+              pred_train = LR.predict(train_feature)
+              pred_verif = LR.predict(verif_feature)
+              pred_test = LR.predict(test_feature)
+
+              accracy_train = accuracy_score(train['CATEGORY'],pred_train)
+              accracy_verif = accuracy_score(verif['CATEGORY'],pred_verif)
+              accracy_test = accuracy_score(test['CATEGORY'],pred_test)
+
+              print("accracy score (train: {}): {:.4f}".format(solver,accracy_train))
+              print("accracy score (verif: {}): {:.4f}".format(solver,accracy_verif))
+              print("accracy score (test: {}): {:.4f}".format(solver,accracy_test))
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="03/17/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">03/17/2021</font></b></br>
+        <!-test->
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch07.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Load and display word vectors (60: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import numpy as np
+          from gensim.models import KeyedVectors
+
+          file = './GoogleNews-vectors-negative300.bin.gz'
+
+          model = KeyedVectors.load_word2vec_format(file, binary=True)
+
+          word_vec_US = model['United_States']
+        </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
           </a>
           </font></b>
         </p>
@@ -365,6 +542,81 @@
           Category:
           <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
             Programming
+          </a>
+          </font></b>
+        </p>
+    </section>
+    <section id="03/31/2021">
+      <hr width= 95%>
+      <p>
+        <b><font size="2" color="#000" face="Comic Sans MS">03/31/2021</font></b></br>
+        <!-test->
+        </br>
+        <p style="margin: -5px 20px -15px 40px;">
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch07.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Word similarity (61: NLP100 Exercise)</font></b>
+        </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import os
+          from gensim.models import KeyedVectors
+          import numpy as np
+
+          file = './GoogleNews-vectors-negative300.bin.gz'
+
+          model = KeyedVectors.load_word2vec_format(file,binary=True)
+
+          word_2vec_UnitedStates = model["United_States"]
+          word_2vec_US = model["U.S."]
+
+          print(np.linalg.norm(word_2vec_US)) #1.9593687
+
+          CS_US = np.dot(word_2vec_UnitedStates,word_2vec_US)/
+                  (np.linalg.norm(word_2vec_UnitedStates)*np.linalg.norm(word_2vec_US))
+          print(CS_US) #0.7310775
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+          <a class="no-underline" href="https://nlp100.github.io/ja/ch07.html" target="_blank" rel="noopener noreferrer">
+            <b><font size="2" color="#000" face="Comic Sans MS" >Top-10 most similar words (62: NLP100 Exercise)</font></b>
+          </a>
+          </p>
+          <pre><code class="prettyprint linenums">
+            from gensim.models import KeyedVectors
+
+            file = "./GoogleNews-vectors-negative300.bin.gz"
+
+            model = KeyedVectors.load_word2vec_format(file,binary=True)
+
+            result = model.most_similar(positive='United_States',topn=10)
+
+            for word,cs in result:
+                print(word,cs)
+          </code></pre>
+          <p style="margin: -5px 20px -15px 40px;">
+            <a class="no-underline" href="https://nlp100.github.io/ja/ch07.html" target="_blank" rel="noopener noreferrer">
+              <b><font size="2" color="#000" face="Comic Sans MS" >Analogy based on the additive composition (63: NLP100 Exercise)</font></b>
+            </a>
+            </p>
+            <pre><code class="prettyprint linenums">
+              from gensim.models import KeyedVectors
+
+              file ="./GoogleNews-vectors-negative300.bin.gz"
+
+              model = KeyedVectors.load_word2vec_format(file,binary=True)
+
+              word_analogy = model["Spain"] - model["Madrid"] + model["Athens"]
+
+              result_analogy = model.most_similar(positive=["Spain","Athens"],negative=["Madrid"],topn=10)
+              
+              for word,cs in result_analogy:
+                  print("word:{}, cs:{}".format(word,cs))
+            </code></pre>
+      </p>
+        <p style="text-align:right; margin: -25px 0px 0px 0px;">
+          <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
+          Category:
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
           </a>
           </font></b>
         </p>

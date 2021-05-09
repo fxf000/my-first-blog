@@ -56,15 +56,152 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">11/12/2020</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >Connected Components (ALDS1_11_D: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Extract all pairs that the phrase containing nouns modifies the phrase containing verbs (43: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          file_name = "./ai.ja.txt.parsed/ai.ja.txt.cabocha"
+
+          class Morph():
+              def __init__(self,morph):
+                  surface,attr = morph.split("\t")
+                  attr = attr.split(",")
+                  self.surface = surface
+                  self.base = attr[6]
+                  self.pos = attr[0]
+                  self.pos1 = attr[1]
+
+
+          class Chunk():
+              def __init__(self,morphs,dst):
+                  self.morphs = morphs
+                  self.dst = dst
+                  self.srcs = []
+
+
+          class Sentence():
+              def __init__(self,chunks):
+                  self.chunks = chunks
+                  for i,chunk in enumerate(self.chunks):
+                      if chunk.dst != -1:
+                          self.chunks[chunk.dst].srcs.append(i)
+
+
+          morphs = []
+          chunks = []
+          sentences = []
+
+          with open(file_name,mode="r") as f:
+              for line in f:
+                  if line[0] == "*":
+                      if len(morphs) > 0:
+                          chunks.append(Chunk(morphs,dst))
+                          morphs = []
+                      dst = int(line.rstrip("\n").split(" ")[2].rstrip("D"))
+                  elif line != "EOS\n":
+                      mor = Morph(line.rstrip("\n"))
+                      morphs.append(mor)
+                  elif len(morphs) > 0:
+                      chunks.append(Chunk(morphs,dst))
+                      sentences.append(Sentence(chunks))
+                      morphs = []
+                      dst = None
+                      chunks = []
+
+          for i,chunk in enumerate(sentences[1].chunks):
+              if chunk.dst != -1:
+                  modifier = "".join([mor.surface for mor in chunk.morphs if not mor.pos == "記号"])
+                  modifier_pos = [mor.pos for mor in chunk.morphs if not mor.pos == "記号"]
+                  modifiee = "".join([mor.surface for mor in sentences[1].chunks[chunk.dst].morphs 
+                            if not mor.pos == "記号"])
+                  modifiee_pos = [mor.pos for mor in sentences[1].chunks[chunk.dst].morphs if not mor.pos == "記号"]
+                  if "名詞" in modifier_pos and "動詞" in modifiee_pos:
+                      print(modifier,modifiee,sep="\t")
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+          <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
+            <b><font size="2" color="#000" face="Comic Sans MS" >Visualize dependency trees (44: NLP100 Exercise)</font></b>
+          </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import os
+          from graphviz import Digraph
+          import pydot
+          from IPython.display import Image,display_png
+
+          file_name = "./ai.ja.txt.parsed/ai.ja.txt.cabocha"
+
+
+          class Morph():
+              def __init__(self,morph):
+                  surface,attr = morph.split("\t")
+                  attr = attr.split(",")
+                  self.surface = surface
+                  self.base = attr[6]
+                  self.pos = attr[0]
+                  self.pos1 = attr[1]
+
+
+          class Chunk():
+              def __init__(self,morphs,dst):
+                  self.morphs = morphs
+                  self.dst = dst
+                  self.srcs = []
+
+
+          class Sentence():
+              def __init__(self,chunks):
+                  self.chunks = chunks
+                  for i,chunk in enumerate(self.chunks):
+                      if chunk.dst != -1:
+                          self.chunks[chunk.dst].srcs.append(i)
+
+
+          morphs = []
+          chunks = []
+          sentences = []
+
+          with open(file_name,mode="r") as f:
+              for line in f:
+                  if line[0] == "*":
+                      if len(morphs) > 0:
+                          chunks.append(Chunk(morphs,dst))
+                          morphs = []
+                      dst = int(line.rstrip("\n").split(" ")[2].rstrip("D"))
+                  elif line != "EOS\n":
+                      mor = Morph(line.rstrip("\n"))
+                      morphs.append(mor)
+                  elif len(morphs) > 0:
+                      chunks.append(Chunk(morphs,dst))
+                      sentences.append(Sentence(chunks))
+                      morphs = []
+                      dst = None
+                      chunks = []
+
+
+          edges = []
+
+          for id,chunk in enumerate(sentences[1].chunks):
+              if chunk.dst != -1:
+                  modifier = "".join([mor.surface for mor in chunk.morphs if not mor.pos == "記号"] + ["（"+str(id)+"）"])
+                  modifiee = "".join([mor.surface for mor in sentences[1].chunks[chunk.dst].morphs 
+                            if not mor.pos == "記号"] + ["（"+str(chunk.dst)+"）"])
+                  edges.append([modifier,modifiee])
+
+          g = pydot.graph_from_edges(edges,directed=True)
+
+          n = pydot.Node("node")
+          n.fontname = "IPAGothic"
+          n.fontsize = 12
+
+          g.add_node(n)
+
+          g.write_png("dependency_parsing_tree.png")
+          display_png(Image("dependency_parsing_tree.png"))
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
@@ -80,22 +217,96 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">11/13/2020</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >Connected Components (ALDS1_11_D: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_A" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Graph representation (ALDS1_11_A: Aize Online Judge)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import sys
+
+          def main():
+              input = sys.stdin.readline
+              n = int(input())
+              M = [[0 for _ in range(n)] for _ in range(n)]
+
+              for i in range(n):
+                  # *:unpacking to list
+                  u,k,*V = map(int,input().split())
+                  if k > 0:
+                      for v in V:
+                          #print(v)
+                          M[u-1][v-1] = 1
+
+              for m in M:
+                  print(" ".join(map(str,m)))
+
+
+          if __name__ == "__main__":
+              main()
+        </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+          <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B" target="_blank" rel="noopener noreferrer">
+            <b><font size="2" color="#000" face="Comic Sans MS" >Depth-first Search: DFS (ALDS1_11_B: Aize Online Judge)</font></b>
+          </a>
+        </p>
+        <pre><code class="prettyprint linenums">
+          import sys
+
+          """
+          White : not visited
+          Gray : visiting
+          Black : visited
+          """
+
+          input = sys.stdin.readline
+          n = int(input())
+
+          M = [[0 for _ in range(n)] for _ in range(n)]
+          color = ["White" for _ in range(n)]
+          d = [None for _ in range(n)]
+          f = [None for _ in range(n)]
+          time = 0
+
+          def dfs_visit(u):
+              global time
+              color[u] = "Gray"
+              time += 1
+              d[u] = time
+              for v in range(n):
+                  if M[u][v] == 1 and color[v] == "White":
+                      dfs_visit(v)
+              color[u] = "Black"
+              time += 1
+              f[u] = time
+
+          def dfs():
+              global time
+              for u in range(n):
+                  if color[u] == "White":
+                      dfs_visit(u)
+              for i in range(n):
+                  print("{} {} {}".format(i+1,d[i],f[i]))
+
+          def main():
+              for i in range(n):
+                  u,k,*V = map(int,input().split())
+                  if k > 0:
+                      for v in V:
+                          M[u-1][v-1] = 1
+              dfs()
+
+          if __name__ == "__main__":
+              main()
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
-            Natural Language Processing
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
           </a>
           </font></b>
         </p>
@@ -104,15 +315,86 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">11/16/2020</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >Connected Components (ALDS1_11_D: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Extract verb case patterns (45: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          file_name = "./ai.ja.txt.parsed/ai.ja.txt.cabocha"
+
+
+          class Morph():
+              def __init__(self,morph):
+                  surface,attr = morph.split("\t")
+                  attr = attr.split(",")
+                  self.surface = surface
+                  self.base = attr[6]
+                  self.pos = attr[0]
+                  self.pos1 = attr[1]
+
+
+          class Chunk():
+              def __init__(self,morphs,dst):
+                  self.morphs = morphs
+                  self.dst = dst
+                  self.srcs = []
+
+
+          class Sentence():
+              def __init__(self,chunks):
+                  self.chunks = chunks
+                  for i,chunk in enumerate(self.chunks):
+                      if chunk.dst != -1:
+                          self.chunks[chunk.dst].srcs.append(i)
+
+
+          morphs = []
+          chunks = []
+          sentences = []
+
+
+          with open(file_name,mode="r") as f:
+              for line in f:
+                  if line[0] == "*":
+                      if len(morphs) > 0:
+                          chunks.append(Chunk(morphs,dst))
+                          morphs = []
+                      dst = int(line.rstrip("\n").split(" ")[2].rstrip("D"))
+                  elif line != "EOS\n":
+                      mor = Morph(line.rstrip("\n"))
+                      morphs.append(mor)
+                  elif len(morphs) > 0:
+                      chunks.append(Chunk(morphs,dst))
+                      sentences.append(Sentence(chunks))
+                      morphs = []
+                      dst = None
+                      chunks = []
+
+          with open("verb_case.txt",mode="w") as f:
+              for sentence in sentences:
+                  for chunk in sentence.chunks:
+                      for mor in chunk.morphs:
+                          if mor.pos == "動詞":
+                              pred = mor.base
+                              cases = []
+                              for src in chunk.srcs:
+                                  case = "".join(mor.surface for mor in sentence.chunks[src].morphs if mor.pos == "助詞")
+                                  if len(case) > 0:
+                                      cases = cases + [case[-1]]
+                              if len(cases) > 0:
+                                  cases = sorted(list(set(cases)))
+                                  output = "{}\t{}".format(pred," ".join(cases))
+                                  print(output,file=f)
+
+
+          # Confirmation： UNIX command
+          # cat verb_case.txt | sort | uniq -c | sort -nr | head -10
+          # cat verb_case.txt | grep "行う" | sort | uniq -c | sort -nr | head -5
+          # cat verb_case.tst | grep "なる" | sort | uniq -c | sort -nr | head -5
+          # cat verb_case.tst | grep "与える" | sort | uniq -c | sort -nr | head -5
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
@@ -128,22 +410,61 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">11/17/2020</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >Connected Components (ALDS1_11_D: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_C" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Breadth-first Search: BFS (ALDS1_11_C: Aize Online Judge)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          from sys import stdin
+          import queue
+
+          INF = float("inf")
+          input = stdin.readline
+          n = int(input())
+
+          M = [[0 for _ in range(n)] for _ in range(n)]
+          D = [INF for _ in range(n)]
+          Q = queue.Queue()
+
+          def bfs(s):
+              Q.put(s)
+              D[s] = 0
+              while not Q.empty():
+                  u = Q.get()
+                  for v in range(n):
+                      if M[u][v] == 0:
+                          continue
+                      if D[v] != INF:
+                          continue
+                      D[v] = D[u]+1
+                      Q.put(v)
+              for i in range(n):
+                  if D[i] == INF:
+                      D[i] = -1
+
+          def main():
+              for i in range(n):
+                  u,k,*V = map(int,input().split())
+                  if k > 0:
+                      for v in V:
+                          M[u-1][v-1] = 1
+              bfs(0)
+              for j in range(n):
+                  print(str(j+1)+" "+str(D[j]))
+
+
+          if __name__ == "__main__":
+              main()
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
-            Natural Language Processing
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
           </a>
           </font></b>
         </p>
@@ -152,15 +473,87 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">11/18/2020</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >Connected Components (ALDS1_11_D: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Extract verb case frame information (46: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          file_name = "./ai.ja.txt.parsed/ai.ja.txt.cabocha"
+
+
+          class Morph():
+              def __init__(self,morph):
+                  surface,attr = morph.split("\t")
+                  attr = attr.split(",")
+                  self.surface = surface
+                  self.base = attr[6]
+                  self.pos = attr[0]
+                  self.pos1 = attr[1]
+
+
+          class Chunk():
+              def __init__(self,morphs,dst):
+                  self.morphs = morphs
+                  self.dst = dst
+                  self.srcs = []
+
+
+          class Sentence():
+              def __init__(self,chunks):
+                  self.chunks = chunks
+                  for i,chunk in enumerate(self.chunks):
+                      if chunk.dst != -1:
+                          self.chunks[chunk.dst].srcs.append(i)
+
+
+          morphs = []
+          chunks = []
+          sentences = []
+
+
+          with open(file_name,mode="r") as f:
+              for line in f:
+                  if line[0] == "*":
+                      if len(morphs) > 0:
+                          chunks.append(Chunk(morphs,dst))
+                          morphs = []
+                      dst = int(line.rstrip("\n").split(" ")[2].rstrip("D"))
+                  elif line != "EOS\n":
+                      mor = Morph(line.rstrip("\n"))
+                      morphs.append(mor)
+                  elif len(morphs) > 0:
+                      chunks.append(Chunk(morphs,dst))
+                      sentences.append(Sentence(chunks))
+                      morphs = []
+                      dst = None
+                      chunks = []
+
+          with open("verb_case_frame.txt",mode="w") as f:
+              for sentence in sentences:
+                  for chunk in sentence.chunks:
+                      for mor in chunk.morphs:
+                          if mor.pos == "動詞":
+                              pred = mor.base
+                              cases = []
+                              phrases = []
+                              for src in chunk.srcs:
+                                  case = "".join(mor.surface for mor in sentence.chunks[src].morphs if mor.pos == "助詞")
+                                  phrases = phrases + ["".join(mor.surface for mor in sentence.chunks[src].morphs 
+                                            if mor.pos != "記号")]
+                                  if len(case) > 0:
+                                      cases = cases + [case[-1]]
+                              if len(cases) > 0:
+                                  phrases = sorted(list(set(phrases)),key = lambda x: x[-1])
+                                  cases = sorted(list(set(cases)))
+                                  output = "{}\t{}\t{}".format(pred," ".join(cases)," ".join(phrases))
+                                  print(output)
+                                  print(output,file=f)
+
+          # Confirmation： UNIX command
+          # cat verb_case_frame.txt | head -10
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
@@ -194,7 +587,7 @@
         The Prim's algorithm using the adjacency matrix needs to check the number of vertices 
         in the graph in order to find the vertex with the smallest weight edge. 
         Therefore, this search is performed for the number of vertices, 
-        the time complexity is O(|V|<sup>2</sup>)
+        the time complexity is O(|V|<sup>2</sup>).
         </br>
         </br>
         <p style="margin: -5px 20px -15px 40px;">
@@ -304,8 +697,8 @@
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
-            Natural Language Processing
+          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
+            Programming
           </a>
           </font></b>
         </p>
@@ -314,15 +707,96 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">11/21/2020</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >Connected Components (ALDS1_11_D: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Mining verb syntax (47: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import sys
+
+          file_name = "./ai.ja.txt.parsed/ai.ja.txt.cabocha"
+
+
+          class Morph():
+              def __init__(self,morph):
+                  surface,attr = morph.split("\t")
+                  attr = attr.split(",")
+                  self.surface = surface
+                  self.base = attr[6]
+                  self.pos = attr[0]
+                  self.pos1 = attr[1]
+
+
+          class Chunk():
+              def __init__(self,morphs,dst):
+                  self.morphs = morphs
+                  self.dst = dst
+                  self.srcs = []
+
+
+          class Sentence():
+              def __init__(self,chunks):
+                  self.chunks = chunks
+                  for i,chunk in enumerate(self.chunks):
+                      if chunk.dst != -1:
+                          self.chunks[chunk.dst].srcs.append(i)
+
+
+          morphs = []
+          chunks = []
+          sentences = []
+
+          with open(file_name,mode="r") as f:
+              for line in f:
+                  if line[0] == "*":
+                      if len(morphs) > 0:
+                          chunks.append(Chunk(morphs,dst))
+                          morphs = []
+                      dst = int(line.rstrip("\n").split(" ")[2].rstrip("D"))
+                  elif line != "EOS\n":
+                      mor = Morph(line.rstrip("\n"))
+                      morphs.append(mor)
+                  elif len(morphs) > 0:
+                      chunks.append(Chunk(morphs,dst))
+                      sentences.append(Sentence(chunks))
+                      morphs = []
+                      dst = None
+                      chunks = []
+
+          with open("verb_syntax_mining.txt",mode="w") as f:
+              for sentence in sentences:
+                  for chunk in sentence.chunks:
+                      for mor in chunk.morphs:
+                          if mor.pos == "動詞":
+                              for i,src in enumerate(chunk.srcs):
+                                  if len(sentence.chunks[src].morphs) == 2 and 
+                                  sentence.chunks[src].morphs[0].pos1 == "サ変接続" and 
+                                  sentence.chunks[src].morphs[1].surface == "を":
+                                        pred = "".join([sentence.chunks[src].morphs[0].surface, 
+                                              sentence.chunks[src].morphs[1].surface, mor.base])
+                                        cases = []
+                                        phrases = []
+                                        for src_r in chunk.srcs[:i]+chunk.srcs[i+1:]:
+                                            case = [mor.surface for mor in sentence.chunks[src_r].morphs if mor.pos == "助詞"]
+                                            phrase = ["".join(mor.surface for mor in sentence.chunks[src_r].morphs if 
+                                                    mor.pos != "記号")]
+                                            if len(case) > 0:
+                                                cases = cases + case
+                                                phrases = phrases + phrase
+                                        if len(cases) > 0:
+                                            cases = sorted(list(set(cases)))
+                                            phrases = sorted(list(set(phrases)),key = lambda x: x)
+                                            output = "{}\t{}\t{}".format(pred,
+                                                                  " ".join(cases),
+                                                                  " ".join(phrases))
+                                            print(output,file=f)
+                                        break
+
+          # Confirmation: UNIX command
+          # cat verb_syntax_mining.txt | cut -f 1 | sort | uniq -c | sort -nr | head -n 10
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
@@ -338,16 +812,173 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">11/22/2020</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >Connected Components (ALDS1_11_D: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Extract paths from the root to nouns (48: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          file_name = "./ai.ja.txt.parsed/test.ja.txt.cabocha"
+
+          class Morph():
+              def __init__(self,morph):
+                  surface,attr = morph.split("\t")
+                  attr = attr.split(",")
+                  self.surface = surface
+                  self.base = attr[6]
+                  self.pos = attr[0]
+                  self.pos1 = attr[1]
+
+
+          class Chunk():
+              def __init__(self,morphs,dst):
+                  self.morphs = morphs
+                  self.dst = dst
+                  self.srcs = []
+
+
+          class Sentence():
+              def __init__(self,chunks):
+                  self.chunks = chunks
+                  for i,chunk in enumerate(self.chunks):
+                      if chunk.dst != -1:
+                          self.chunks[chunk.dst].srcs.append(i)
+
+
+          morphs = []
+          chunks = []
+          sentences = []
+
+          with open(file_name,mode="r") as f:
+              for line in f:
+                  if line[0] == "*":
+                      if len(morphs) > 0:
+                          chunks.append(Chunk(morphs,dst))
+                          morphs = []
+                      dst = int(line.rstrip("\n").split(" ")[2].rstrip("D"))
+                  elif line != "EOS\n":
+                      mor = Morph(line.rstrip("\n"))
+                      morphs.append(mor)
+                  elif len(morphs) > 0:
+                      chunks.append(Chunk(morphs,dst))
+                      sentences.append(Sentence(chunks))
+                      morphs = []
+                      dst = None
+                      chunks = []
+
+
+          sentence = sentences[0]
+
+          for chunk in sentence.chunks:
+              if "名詞" in [mor.pos for mor in chunk.morphs]:
+                  path = ["".join([mor.surface for mor in chunk.morphs if mor.pos != "記号"])]
+                  while chunk.dst != -1:
+                      path.append("".join([mor.surface for mor in sentence.chunks[chunk.dst].morphs if 
+                                  mor.pos != "記号"]))
+                      chunk = sentence.chunks[chunk.dst]
+                  print(" -> ".join(path))
         </code></pre>
+        <p style="margin: -5px 20px -15px 40px;">
+          <a class="no-underline" href="https://nlp100.github.io/ja/ch05.html" target="_blank" rel="noopener noreferrer">
+            <b><font size="2" color="#000" face="Comic Sans MS" >Extract dependency paths between nouns (49: NLP100 Exercise)</font></b>
+          </a>
+          </p>
+          <pre><code class="prettyprint linenums">
+            from itertools import combinations
+            import re
+
+            file_name = "./ai.ja.txt.parsed/test.ja.txt.cabocha"
+
+            class Morph():
+                def __init__(self,morph):
+                    surface,attr = morph.split("\t")
+                    attr = attr.split(",")
+                    self.surface = surface
+                    self.base = attr[6]
+                    self.pos = attr[0]
+                    self.pos1 = attr[1]
+
+
+            class Chunk():
+                def __init__(self,morphs,dst):
+                    self.morphs = morphs
+                    self.dst = dst
+                    self.srcs = []
+
+
+            class Sentence():
+                def __init__(self,chunks):
+                    self.chunks = chunks
+                    for i,chunk in enumerate(self.chunks):
+                        if chunk.dst != -1:
+                            self.chunks[chunk.dst].srcs.append(i)
+
+
+            morphs = []
+            chunks = []
+            sentences = []
+
+            with open(file_name,mode="r") as f:
+                for line in f:
+                    if line[0] == "*":
+                        if len(morphs) > 0:
+                            chunks.append(Chunk(morphs,dst))
+                            morphs = []
+                        dst = int(line.rstrip("\n").split(" ")[2].rstrip("D"))
+                    elif line != "EOS\n":
+                        mor = Morph(line.rstrip("\n"))
+                        morphs.append(mor)
+                    elif len(morphs) > 0:
+                        chunks.append(Chunk(morphs,dst))
+                        sentences.append(Sentence(chunks))
+                        morphs = []
+                        dst = None
+                        chunks = []
+
+
+            sentence = sentences[0]
+            nouns = []
+
+            for i,chunk in enumerate(sentence.chunks):
+                if "名詞" in [mor.pos for mor in chunk.morphs]:
+                    nouns.append(i)
+                for i,j in combinations(nouns,2):
+                    path_i = []
+                    path_j = []
+                    while i != j:
+                        if i < j:
+                            path_i.append(i)
+                            i = sentence.chunks[i].dst
+                        else:
+                            path_j.append(j)
+                            j = sentence.chunks[j].dst
+                    if len(path_j) == 0:
+                        chunk_X = "".join([mor.surface if mor.pos != "名詞" else "X" for mor in 
+                                  sentence.chunks[path_i[0]].morphs])
+                        chunk_Y = "".join([mor.surface if mor.pos != "名詞" else "Y" for mor in 
+                                  sentence.chunks[i].morphs])
+                        chunk_X = re.sub("X+","X",chunk_X)
+                        chunk_Y = re.sub("Y+","Y",chunk_Y)
+                        path_XY = [chunk_X] + ["".join([mor.surface for mor in sentence.chunks[n].morphs]) for n in 
+                                  path_i[1:]] + [chunk_Y]
+                        print(" -> ".join(path_XY))
+                    else:
+                        chunk_X = "".join([mor.surface if mor.pos != "名詞" else "X" for mor in 
+                                  sentence.chunks[path_i[0]].morphs])
+                        chunk_Y = "".join([mor.surface if mor.pos != "名詞" else "Y" for mor in 
+                                  sentence.chunks[path_j[0]].morphs])
+                        chunk_k = "".join([mor.surface for mor in sentence.chunks[i].morphs if mor.pos != "記号"])
+                        chunk_X = re.sub("X+","X",chunk_X)
+                        chunk_X = re.sub("X・X","X",chunk_X)
+                        chunk_Y = re.sub("Y+","Y",chunk_Y)
+                        path_X = [chunk_X] + ["".join([mor.surface for mor in sentence.chunks[n].morphs]) for n in 
+                                  path_i[1:]]
+                        path_Y = [chunk_Y] + ["".join([mor.surface for mor in sentence.chunks[n].morphs]) for n in 
+                                  path_j[1:]]
+                        print(" | ".join([" -> ".join(path_X), " -> ".join(path_Y), chunk_k]))
+          </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">

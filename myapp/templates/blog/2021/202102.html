@@ -56,22 +56,33 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">02/03/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch06.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Training (52: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import pandas as pd
+          from sklearn.linear_model import LogisticRegression
+          import pickle
+
+          train_feature = pd.read_table("./train_feature.txt")
+          train = pd.read_table("./train.txt")
+
+          LR = LogisticRegression(random_state=123,solver='lbfgs',multi_class='auto',max_iter=10000)
+          LR.fit(train_feature,train["CATEGORY"])
+
+          with open("LR_model.pickle",mode="wb") as fp:
+              pickle.dump(LR,fp)
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
-            Programming
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
           </a>
           </font></b>
         </p>
@@ -311,22 +322,34 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">02/23/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch06.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Prediction (53: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import pandas as pd
+          from sklearn.linear_model import LogisticRegression
+          import pickle
+          import numpy as np
+
+          train_feature = pd.read_table("./train_feature.txt")
+          verif_feature = pd.read_table("./verif_feature.txt")
+
+          with open("LR_model.pickle",mode="rb") as fp:
+              LR = pickle.load(fp)
+
+          pre_proba = LR.predict_proba(train_feature)
+          pre = LR.predict(train_feature)
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
-            Programming
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
           </a>
           </font></b>
         </p>
@@ -335,22 +358,46 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">02/24/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch06.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Accuracy score (54: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import pandas as pd
+          import pickle
+          import dask.dataframe as ddf
+          from sklearn.metrics import accuracy_score
+          import numpy as np
+
+          train_feature = pd.read_table("./train_feature.txt")
+          train = pd.read_table("./train.txt")
+          verif_feature = pd.read_table("./verif_feature.txt")
+          verif = pd.read_table("./verif.txt")
+
+
+          with open("LR_model.pickle",mode="rb") as fp:
+              LR = pickle.load(fp)
+
+          def pred_LR(LR,x):
+              return [np.max(LR.predict_proba(x),axis=1), LR.predict(x)]
+
+          train_pred = pred_LR(LR,train_feature)
+          verif_pred = pred_LR(LR,verif_feature)
+
+          accuracy_train = accuracy_score(train["CATEGORY"],train_pred[1])
+          accuracy_verif = accuracy_score(verif["CATEGORY"],verif_pred[1])
+          print("Accurancy (train): ",accuracy_train)
+          print("Accurancy (verif): ",accuracy_verif)
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
-            Programming
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Programming
           </a>
           </font></b>
         </p>
@@ -359,22 +406,61 @@
       <hr width= 95%>
       <p>
         <b><font size="2" color="#000" face="Comic Sans MS">02/25/2021</font></b></br>
-        test
+        <!-test->
         </br>
         <p style="margin: -5px 20px -15px 40px;">
-        <a class="no-underline" href="" target="_blank" rel="noopener noreferrer">
-          <b><font size="2" color="#000" face="Comic Sans MS" >test (DSL_1_A: Aize Online Judge)</font></b>
+        <a class="no-underline" href="https://nlp100.github.io/ja/ch06.html" target="_blank" rel="noopener noreferrer">
+          <b><font size="2" color="#000" face="Comic Sans MS" >Making confusion matrix (55: NLP100 Exercise)</font></b>
         </a>
         </p>
         <pre><code class="prettyprint linenums">
-          test
+          import pandas as pd
+          import pickle
+          from sklearn.metrics import confusion_matrix
+          import seaborn as sns
+          import matplotlib.pyplot as plt
+
+          train = pd.read_table("./train.txt")
+          train_feature = pd.read_table("./train_feature.txt")
+          verif = pd.read_table("./verif.txt")
+          verif_feature = pd.read_table("./verif_feature.txt")
+
+          with open("LR_model.pickle",mode="rb") as fp:
+              LR = pickle.load(fp)
+
+          train_pred = LR.predict(train_feature)
+          verif_pred = LR.predict(verif_feature)
+
+          train_CM= confusion_matrix(train['CATEGORY'],train_pred)
+          verif_CM = confusion_matrix(verif['CATEGORY'],verif_pred)
+
+          fig,axes = plt.subplots(1,2)
+
+          sns.heatmap(train_CM,annot=True,cmap='Blues',ax=axes[0])
+          sns.heatmap(verif_CM,annot=True,cmap='Reds',ax=axes[1])
+
+          axes[0].set_xlabel('Predicted labels')
+          axes[0].set_ylabel('True labels')
+          axes[0].set_title('Confusion Matrix (train)')
+          axes[0].xaxis.set_ticklabels(['b','e','t','m'])
+          axes[0].yaxis.set_ticklabels(['b','e','t','m'])
+
+          axes[1].set_xlabel('Predicted labels')
+          axes[1].set_ylabel('True labels')
+          axes[1].set_title('Confusion Matrix (verif)')
+          axes[1].xaxis.set_ticklabels(['b','e','t','m'])
+          axes[1].yaxis.set_ticklabels(['b','e','t','m'])
+
+          plt.tight_layout()
+          plt.show()
+          fig.savefig("confusion_matrix.pdf")
         </code></pre>
       </p>
         <p style="text-align:right; margin: -25px 0px 0px 0px;">
           <b><font size="2" color="#000" face="Comic Sans MS"  style="text-align:center">
           Category:
-          <a class="no-underline" href="{% url 'category' %}#PROGRAMMING" target="_blank" rel="noopener noreferrer">
-            Programming
+          <a class="no-underline" href="{% url 'category' %}#NLP" target="_blank" rel="noopener noreferrer">
+            Natural Language Processing
           </a>
           </font></b>
         </p>
